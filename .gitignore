@@ -1,0 +1,5 @@
+5_research/qarm/ROS Examples/ros2/build/
+5_research/qarm/ROS Examples/ros2/install/
+5_research/qarm/ROS Examples/ros2/log/
+**/__pycache__/
+*.pyc

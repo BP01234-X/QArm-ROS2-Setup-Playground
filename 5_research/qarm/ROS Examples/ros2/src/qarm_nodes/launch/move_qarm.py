@@ -11,7 +11,7 @@ def generate_launch_description():
     # Declare launch arguments with default values
     declare_args = [
         DeclareLaunchArgument('goal_pose', default_value='[0.0,0.0,0.5,0.0]'),
-    ]
+    ]  # Default goal pose is [x, y, z, gripper_radians]
 
     hardware = Node(
             package='qarm_nodes',
@@ -28,16 +28,22 @@ def generate_launch_description():
     move_client = Node(
             package='qarm_nodes',
             executable='move_qarm_client',
-            name='Move_Server',
+            name='Move_Client',
             parameters=[{
                 'goal_pose':LaunchConfiguration("goal_pose")
             }]
         )
+    realsense_camera_node = Node(
+            package='qarm_nodes',
+            executable='rgbd',
+            name='Camera'
+    )
+
     
     return LaunchDescription(
         declare_args+[
         hardware,
-        # realsense_camera_node,
+        realsense_camera_node,
         move_server,
         move_client,
     ])

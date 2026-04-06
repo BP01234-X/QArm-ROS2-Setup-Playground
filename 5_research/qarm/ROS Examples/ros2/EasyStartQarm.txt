@@ -1,0 +1,14 @@
+# Enter QArm Environment
+cd ~"/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2"
+ ~/qarm_env/scripts/enter_qarm.sh
+
+
+#Source Build the workspace and set the correct python
+source /opt/ros/kilted/setup.bash
+colcon build --symlink-install
+source install/setup.bash
+export PYTHONNOUSERSITE=1
+
+#Run nodes
+ros2 run qarm_nodes qarm_hardware
+

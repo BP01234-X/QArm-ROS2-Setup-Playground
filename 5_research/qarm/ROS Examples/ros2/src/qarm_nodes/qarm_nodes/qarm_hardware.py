@@ -21,7 +21,8 @@ class QarmHardware(Node):
 
 		# Initialize buffers
         self.joint_command = np.zeros(4, dtype=np.float64)
-        self.gripper_command = np.zeros(1, dtype=np.float64)
+        #self.gripper_command = np.zeros(1, dtype=np.float64) Bug BY Quanser feeding an array instead of direct scalar.
+        self.gripper_command = 0.1
         self.LED_command = np.zeros(3, dtype=np.float64)
 
         # QoS profile for publisher/subscriber
@@ -73,7 +74,7 @@ class QarmHardware(Node):
             self.joint_command[:] = msg.data[:4]
 
     def gripper_cmd_cb(self, msg: Float64):
-        self.gripper_command[0] = msg.data
+        self.gripper_command = float(msg.data)
 
     def led_cmd_cb(self, msg: Float64MultiArray):
         if len(msg.data) == 3:
@@ -86,7 +87,7 @@ class QarmHardware(Node):
         # Write them to the arm
         self.myArm.read_write_std(
             phiCMD=self.joint_command, 
-            gprCMD=self.gripper_command, 
+            gprCMD=float(self.gripper_command),  #Fix for bug BY Quanser 
             baseLED=self.LED_command)
         
         # ---- Publish joint state ----
