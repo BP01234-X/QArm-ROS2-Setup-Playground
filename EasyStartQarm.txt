@@ -1,5 +1,6 @@
 # Enter QArm Environment
-cd ~"/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2"
+cd ~/Documents/QArm-ROS2-Setup-Playground/5_research/qarm/ROS\ Examples/ros2
+
  ~/qarm_env/scripts/enter_qarm.sh
 
 
