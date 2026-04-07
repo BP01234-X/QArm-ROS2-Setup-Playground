@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "qarm_interfaces/action/MoveQArm_Goal",
+      "fields": [
+        {
+          "name": "task_space_pose",
+          "type": {
+            "type_id": 59,
+            "capacity": 4,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "qarm_interfaces/action/MoveQArm_Goal",
+      "hash_string": "RIHS01_bd0225d8e7409d96a9b06bc136aa02f1463c9ce900358075c7b42a284cb754a2"
+    }
+  ]
+}

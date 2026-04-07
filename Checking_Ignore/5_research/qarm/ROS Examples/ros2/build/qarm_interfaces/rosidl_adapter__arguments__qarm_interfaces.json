@@ -1,0 +1,7 @@
+{
+  "package_name": "qarm_interfaces",
+  "non_idl_tuples": [
+    "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/src/qarm_interfaces:msg/QArmDiagnostics.msg",
+    "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/src/qarm_interfaces:action/MoveQArm.action"
+  ]
+}

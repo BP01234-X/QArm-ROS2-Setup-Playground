@@ -1,0 +1,85 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "qarm_interfaces/action/MoveQArm_FeedbackMessage",
+      "fields": [
+        {
+          "name": "goal_id",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "unique_identifier_msgs/msg/UUID"
+          },
+          "default_value": ""
+        },
+        {
+          "name": "feedback",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "qarm_interfaces/action/MoveQArm_Feedback"
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": [
+      {
+        "type_name": "qarm_interfaces/action/MoveQArm_Feedback",
+        "fields": [
+          {
+            "name": "position_error_norm",
+            "type": {
+              "type_id": 11,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "orientation_error",
+            "type": {
+              "type_id": 11,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "unique_identifier_msgs/msg/UUID",
+        "fields": [
+          {
+            "name": "uuid",
+            "type": {
+              "type_id": 51,
+              "capacity": 16,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      }
+    ]
+  },
+  "type_hashes": [
+    {
+      "type_name": "qarm_interfaces/action/MoveQArm_FeedbackMessage",
+      "hash_string": "RIHS01_1403326d82156589d7405b87734fb30c9387aef6cbb845ac4003b3b2a2d8eaba"
+    },
+    {
+      "type_name": "qarm_interfaces/action/MoveQArm_Feedback",
+      "hash_string": "RIHS01_2e50e78f144b030dfcd62eb2e5fca8cab2fea7b8e54eeb9c740f333e5ff6a594"
+    },
+    {
+      "type_name": "unique_identifier_msgs/msg/UUID",
+      "hash_string": "RIHS01_1b8e8aca958cbea28fe6ef60bf6c19b683c97a9ef60bb34752067d0f2f7ab437"
+    }
+  ]
+}

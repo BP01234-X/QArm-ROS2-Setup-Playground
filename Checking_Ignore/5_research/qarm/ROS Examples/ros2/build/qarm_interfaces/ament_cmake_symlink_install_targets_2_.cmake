@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_interfaces/rosidl_generator_py/qarm_interfaces/qarm_interfaces_s__rosidl_typesupport_c.so" "TARGETS" "qarm_interfaces_s__rosidl_typesupport_c" "DESTINATION" "lib/python3.12/site-packages/qarm_interfaces")

@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_files("/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/src/qarm_interfaces" FILES "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/src/qarm_interfaces/msg/QArmDiagnostics.msg" "DESTINATION" "share/qarm_interfaces/msg")

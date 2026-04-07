@@ -1,0 +1,36 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "qarm_interfaces/action/MoveQArm_Feedback",
+      "fields": [
+        {
+          "name": "position_error_norm",
+          "type": {
+            "type_id": 11,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        },
+        {
+          "name": "orientation_error",
+          "type": {
+            "type_id": 11,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "qarm_interfaces/action/MoveQArm_Feedback",
+      "hash_string": "RIHS01_2e50e78f144b030dfcd62eb2e5fca8cab2fea7b8e54eeb9c740f333e5ff6a594"
+    }
+  ]
+}

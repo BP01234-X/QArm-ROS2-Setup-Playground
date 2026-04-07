@@ -1,0 +1,17 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/qarm_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/qarm_interfaces/action/detail/move_q_arm__type_support.cpp.o"
+  "CMakeFiles/qarm_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/qarm_interfaces/action/detail/move_q_arm__type_support.cpp.o.d"
+  "CMakeFiles/qarm_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/qarm_interfaces/msg/detail/q_arm_diagnostics__type_support.cpp.o"
+  "CMakeFiles/qarm_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/qarm_interfaces/msg/detail/q_arm_diagnostics__type_support.cpp.o.d"
+  "libqarm_interfaces__rosidl_typesupport_introspection_cpp.pdb"
+  "libqarm_interfaces__rosidl_typesupport_introspection_cpp.so"
+  "rosidl_typesupport_introspection_cpp/qarm_interfaces/action/detail/move_q_arm__rosidl_typesupport_introspection_cpp.hpp"
+  "rosidl_typesupport_introspection_cpp/qarm_interfaces/action/detail/move_q_arm__type_support.cpp"
+  "rosidl_typesupport_introspection_cpp/qarm_interfaces/msg/detail/q_arm_diagnostics__rosidl_typesupport_introspection_cpp.hpp"
+  "rosidl_typesupport_introspection_cpp/qarm_interfaces/msg/detail/q_arm_diagnostics__type_support.cpp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/qarm_interfaces__rosidl_typesupport_introspection_cpp.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

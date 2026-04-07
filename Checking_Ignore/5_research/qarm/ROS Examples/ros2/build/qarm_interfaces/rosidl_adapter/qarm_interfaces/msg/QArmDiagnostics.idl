@@ -1,0 +1,29 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from qarm_interfaces/msg/QArmDiagnostics.msg
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Header.idl"
+
+module qarm_interfaces {
+  module msg {
+    struct QArmDiagnostics {
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "Name")
+      sequence<string> joint_names;
+
+      @verbatim (language="comment", text=
+        "JointCurrent")
+      sequence<double> joint_currents;
+
+      @verbatim (language="comment", text=
+        "JointPWM")
+      sequence<double> joint_pwms;
+
+      @verbatim (language="comment", text=
+        "JointTemperature")
+      sequence<double> joint_temperatures;
+    };
+  };
+};

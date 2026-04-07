@@ -1,0 +1,17 @@
+{
+  "package_name": "qarm_interfaces",
+  "output_dir": "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_interfaces/rosidl_generator_type_description/qarm_interfaces",
+  "idl_tuples": [
+    "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_interfaces/rosidl_adapter/qarm_interfaces:msg/QArmDiagnostics.idl",
+    "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_interfaces/rosidl_adapter/qarm_interfaces:action/MoveQArm.idl"
+  ],
+  "include_paths": [
+    "std_msgs:/opt/ros/kilted/share/std_msgs",
+    "builtin_interfaces:/opt/ros/kilted/share/builtin_interfaces",
+    "action_msgs:/opt/ros/kilted/share/action_msgs",
+    "unique_identifier_msgs:/opt/ros/kilted/share/unique_identifier_msgs",
+    "service_msgs:/opt/ros/kilted/share/service_msgs",
+    "sensor_msgs:/opt/ros/kilted/share/sensor_msgs",
+    "geometry_msgs:/opt/ros/kilted/share/geometry_msgs"
+  ]
+}

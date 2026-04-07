@@ -1,0 +1,267 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-c8b5ec7c38f47b15f060.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				},
+				{
+					"build" : "qarm_interfaces__py",
+					"jsonFile" : "directory-qarm_interfaces__py-b0b236a1cfb8c8e0df7c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_interfaces/qarm_interfaces__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "qarm_interfaces__rs",
+					"jsonFile" : "directory-qarm_interfaces__rs-2118f654026bd0b8b499.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_interfaces/qarm_interfaces__rs",
+					"targetIndexes" : 
+					[
+						14
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "qarm_interfaces",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_qarm_interfaces_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_qarm_interfaces_egg-54d15b081cd797eb134b.json",
+					"name" : "ament_cmake_python_build_qarm_interfaces_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_symlink_qarm_interfaces::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_symlink_qarm_interfaces-88ffaa94b1b01cd4a26c.json",
+					"name" : "ament_cmake_python_symlink_qarm_interfaces",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces-7121c0240ab90871b628.json",
+					"name" : "qarm_interfaces",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__cpp-30e4b7221c6c0d2ea83a.json",
+					"name" : "qarm_interfaces__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "qarm_interfaces__py::@c2eaecbe36150c25dac6",
+					"jsonFile" : "target-qarm_interfaces__py-8b04c2f0f3201cc79e0b.json",
+					"name" : "qarm_interfaces__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__rosidl_generator_c-ca4d1f1ec153c8582ce4.json",
+					"name" : "qarm_interfaces__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__rosidl_generator_py-3f368c2955b12a868679.json",
+					"name" : "qarm_interfaces__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__rosidl_generator_type_description::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__rosidl_generator_type_description-a4c88644705f26039bd4.json",
+					"name" : "qarm_interfaces__rosidl_generator_type_description",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__rosidl_typesupport_c-178df9ea030107733863.json",
+					"name" : "qarm_interfaces__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__rosidl_typesupport_cpp-d1c01096b3a1a06888aa.json",
+					"name" : "qarm_interfaces__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__rosidl_typesupport_fastrtps_c-dc6010dbffcd393e2bfb.json",
+					"name" : "qarm_interfaces__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__rosidl_typesupport_fastrtps_cpp-e6667e40979ce1696320.json",
+					"name" : "qarm_interfaces__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__rosidl_typesupport_introspection_c-13d171674300e812dad9.json",
+					"name" : "qarm_interfaces__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces__rosidl_typesupport_introspection_cpp-4653a4cf0ac602907498.json",
+					"name" : "qarm_interfaces__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "qarm_interfaces__rs::@20ac6abb635c187be6d7",
+					"jsonFile" : "target-qarm_interfaces__rs-9db464eaa66c286ea684.json",
+					"name" : "qarm_interfaces__rs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces_s__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces_s__rosidl_typesupport_c-b41449667b909aa1a7d3.json",
+					"name" : "qarm_interfaces_s__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces_s__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces_s__rosidl_typesupport_fastrtps_c-a7f8a7a777f13421fee1.json",
+					"name" : "qarm_interfaces_s__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces_s__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces_s__rosidl_typesupport_introspection_c-338324cc2f0a3282e75b.json",
+					"name" : "qarm_interfaces_s__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qarm_interfaces_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qarm_interfaces_uninstall-f90127c7260f44b6c148.json",
+					"name" : "qarm_interfaces_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-e44ddd79689bb1d25911.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_interfaces",
+		"source" : "/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/src/qarm_interfaces"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

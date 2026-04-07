@@ -1,0 +1,29 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from qarm_interfaces/action/MoveQArm.action
+// generated code does not contain a copyright notice
+
+
+module qarm_interfaces {
+  module action {
+    typedef double double__4[4];
+    @verbatim (language="comment", text=
+      "goal")
+    struct MoveQArm_Goal {
+      double__4 task_space_pose;
+    };
+    @verbatim (language="comment", text=
+      "result")
+    struct MoveQArm_Result {
+      boolean success;
+
+      string message;
+    };
+    @verbatim (language="comment", text=
+      "feedback")
+    struct MoveQArm_Feedback {
+      double position_error_norm;
+
+      double orientation_error;
+    };
+  };
+};

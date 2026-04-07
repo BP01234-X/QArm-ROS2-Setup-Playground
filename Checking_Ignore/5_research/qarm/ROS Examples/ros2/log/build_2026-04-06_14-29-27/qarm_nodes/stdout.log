@@ -1,0 +1,27 @@
+running develop
+running egg_info
+creating qarm_nodes.egg-info
+writing qarm_nodes.egg-info/PKG-INFO
+writing dependency_links to qarm_nodes.egg-info/dependency_links.txt
+writing entry points to qarm_nodes.egg-info/entry_points.txt
+writing requirements to qarm_nodes.egg-info/requires.txt
+writing top-level names to qarm_nodes.egg-info/top_level.txt
+writing manifest file 'qarm_nodes.egg-info/SOURCES.txt'
+reading manifest file 'qarm_nodes.egg-info/SOURCES.txt'
+writing manifest file 'qarm_nodes.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/lib/python3.12/site-packages/qarm-nodes.egg-link (link to .)
+Installing move_qarm_client script to /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/lib/qarm_nodes
+Installing move_qarm_server script to /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/lib/qarm_nodes
+Installing qarm_hardware script to /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/lib/qarm_nodes
+Installing rgbd script to /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/lib/qarm_nodes
+
+Installed /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_nodes
+running symlink_data
+creating /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/share/ament_index
+creating /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/share/ament_index/resource_index
+creating /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/share/ament_index/resource_index/packages
+symbolically linking /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_nodes/resource/qarm_nodes -> /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/share/ament_index/resource_index/packages
+symbolically linking /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_nodes/package.xml -> /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/share/qarm_nodes
+creating /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/share/qarm_nodes/launch
+symbolically linking /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/build/qarm_nodes/launch/move_qarm.py -> /home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/install/qarm_nodes/share/qarm_nodes/launch

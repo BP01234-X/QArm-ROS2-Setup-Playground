@@ -1,0 +1,5 @@
+[console_scripts]
+move_qarm_client = qarm_nodes.move_qarm_client:main
+move_qarm_server = qarm_nodes.move_qarm_server:main
+qarm_hardware = qarm_nodes.qarm_hardware:main
+rgbd = qarm_nodes.rgbd:main

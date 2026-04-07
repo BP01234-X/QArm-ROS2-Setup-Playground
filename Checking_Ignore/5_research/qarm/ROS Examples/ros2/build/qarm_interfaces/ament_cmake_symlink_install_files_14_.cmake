@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_files("/home/quanser/Documents/Quanser_Academic_Resources/5_research/qarm/ROS Examples/ros2/src/qarm_interfaces" FILES "/opt/ros/kilted/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh" "DESTINATION" "share/qarm_interfaces/environment")
