@@ -15,7 +15,7 @@ import numpy as np
 from hal.products.qarm import QArmUtilities
 
 class QArmActionServer(Node):
-
+  #Definition of what is the qarm hardware
     def __init__(self, name):
         super().__init__(name)
 
@@ -69,6 +69,8 @@ class QArmActionServer(Node):
     def joint_sub_cb(self,joint_state:JointState):
         self.latest_joint_positions = np.array(joint_state.position)
 
+
+# Goal_pose block based on IK 
     def execute_cb(self, goal_handle: ServerGoalHandle):
         
         success = False
@@ -137,6 +139,11 @@ class QArmActionServer(Node):
         self.led_pub_.publish(led_cmd_msg)
 
         return CancelResponse.ACCEPT
+
+# Iterative control or movement based on Differential Kinematics
+
+
+
 
 
 def main(args=None):

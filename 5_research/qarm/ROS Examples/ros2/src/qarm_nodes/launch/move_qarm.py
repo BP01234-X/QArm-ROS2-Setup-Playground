@@ -10,7 +10,7 @@ def generate_launch_description():
 
     # Declare launch arguments with default values
     declare_args = [
-        DeclareLaunchArgument('goal_pose', default_value='[0.0,0.0,0.5,0.0]'),
+        DeclareLaunchArgument('goal_pose', default_value='[0.45,0.0,0.5,0.0]'),
     ]  # Default goal pose is [x, y, z, gripper_radians]
 
     hardware = Node(

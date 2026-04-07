@@ -12,5 +12,5 @@ source install/setup.bash
 export PYTHONNOUSERSITE=1
 
 #Run nodes
-ros2 run qarm_nodes move_qarm.py
+ros2 launch qarm_nodes move_qarm.py
 
