@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import time
+
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionServer,CancelResponse
@@ -12,6 +14,7 @@ from std_msgs.msg import Float64,Float64MultiArray
 from qarm_interfaces.action import MoveQArm
 
 import numpy as np
+import time
 from hal.products.qarm import QArmUtilities
 
 class QArmActionServer(Node):
@@ -65,21 +68,43 @@ class QArmActionServer(Node):
         )
         self.rate = self.create_rate(30) 
         self.get_logger().info("Move Arm Action server started")
+        
+        #Tunable Variables for singularity handling
+        self.cond_treshold = 35.0
+        self.lambda_max = 0.20
+        self.k_task = 1.0 # Gain for task space control and speed.
+        self.dt = 0.005 # Time step for control loop based on the rate of 200 Hz of ROS2 qarm_hardware node
+        
+        
 
     def joint_sub_cb(self,joint_state:JointState):
         self.latest_joint_positions = np.array(joint_state.position)
 
 
-# Goal_pose block based on IK 
+# Execution mode decision block
     def execute_cb(self, goal_handle: ServerGoalHandle):
         
         success = False
         reached = False
 
         goal = goal_handle.request
-        pose_cmd = goal.task_space_pose
-
+        pose_cmd = np.array(goal.task_space_pose, dtype=np.float64)
+        
+        if goal.mode == MoveQArm.Goal.GOAL_TASK:
+            return self.execute_goal_Task(goal_handle, pose_cmd)
+        if goal.mode == MoveQArm.Goal.CONTINOUS_CONTROL:
+            return self.Continous_Control_movement(goal_handle, pose_cmd)
+        
+        self.result_.success = False
+        self.result_.message = f"Invalid mode: {goal.mode}"
+        goal_handle.abort()
+        return self.result_
+    
+#Goal_pose block based on IK
+    def execute_goal_Task(self, goal_handle: ServerGoalHandle, pose_cmd):
         self.get_logger().info("Moving QArm to goal")
+        success = False
+        reached = False
         
         phi, phiOptimal = self.myArmUtil.inverse_kinematics(pose_cmd[:3], pose_cmd[3], self.latest_joint_positions[0:4])
         outsideLimit = all(x == y for x, y in zip(phiOptimal, [0,0,0,0]))
@@ -140,8 +165,76 @@ class QArmActionServer(Node):
 
         return CancelResponse.ACCEPT
 
-# Iterative control or movement based on Differential Kinematics
+# Iterative control or movement based on Differential Kinematics - made by BP01234-X
+# Version: 1.0 - Initial testing Implementation
+    def Continous_Control_movement(self, goal_handle: ServerGoalHandle, pose_cmd):
+        success = False
+        reached = False
+        
+        while not reached:
+            phi = np.array(self.latest_joint_positions[0:4], dtype=np.float64)
+            
+            current_p, current_r = self.myArmUtil.forward_kinematics(phi)
+            position_error = pose_cmd[:3] - current_p
+            orientation_error = pose_cmd[3] - phi[3]
+            
+            total_error = np.linalg.norm(position_error) + np.abs(orientation_error)
+            if total_error <= self.threshhold:
+                reached = True
+                success = True
+                break
 
+            
+            task_error = np.array([
+                position_error[0],
+                position_error[1],
+                position_error[2],
+                orientation_error
+            ], dtype=np.float64)
+
+            V = self.k_task * task_error
+            
+            # Compute joint velocity command using differential kinematics.
+            # Support both HAL signatures: (J, c, r) and legacy (J, c, r, J_inv).
+            dk_result = self.myArmUtil.differential_kinematics(phi)
+            J, c, r = dk_result[0], dk_result[1], dk_result[2]
+            
+            near_singularity = (r == 4 and c > self.cond_treshold)
+            hard_singularity = (r < 4)
+            
+            #Singularity Detector
+            if near_singularity or hard_singularity:
+                alpha = min(1.0, self.cond_treshold / max(c,1e-9))
+                V_eff = alpha * V
+                if hard_singularity:
+                    lam = self.lambda_max
+                    self.get_logger().warn(f"Singularity detected! Applying damping. \n cond(J)={c:.3f}, lambda={lam:.3f}"  )
+                else:
+                    lam = self.lambda_max * (1 - self.cond_treshold/c)
+                    self.get_logger().warn(f"Near singularity detected! Scaling down velocity. \n rank(J)={r}, cond(J)={c:.3f}" )
+                I= np.eye(4)
+                q_dot = J.T @ np.linalg.solve(J @ J.T + (lam**2) * I, V_eff)
+            else:
+                q_dot = np.linalg.solve(J, V)      
+            
+            
+            q_next = phi + q_dot * self.dt
+            
+            joint_cmd_msg = Float64MultiArray()
+            joint_cmd_msg.data = q_next.tolist()
+            self.joint_pub_.publish(joint_cmd_msg)
+            time.sleep(self.dt)
+            
+        self.result_.success = success
+        if success:
+            self.result_.message = 'QArm has reached the target pose.'
+            self.get_logger().info(f'{self.action_name_}: Succeeded')
+            goal_handle.succeed()
+        else:
+            self.result_.message = 'QArm failed to reached the target pose.'
+            self.get_logger().info(f'{self.action_name_}: Failed')
+            goal_handle.abort()
+        return self.result_
 
 
 

@@ -4,13 +4,26 @@ cd ~/Documents/QArm-ROS2-Setup-Playground/5_research/qarm/ROS\ Examples/ros2
 #Source of different environment
 source ~/qarm_env/scripts/enter_qarm.sh
 
-
-#Source Build the workspace and set the correct python
-source /opt/ros/kilted/setup.bash
-colcon build --symlink-install #One-time to accept all changes between files
+#after changessource 
+source ~/qarm_env/scripts/enter_qarm.sh
+colcon build --symlink-install
 source install/setup.bash
-export PYTHONNOUSERSITE=1
+
 
 #Run nodes
 ros2 launch qarm_nodes move_qarm.py
+
+
+
+source ~/qarm_env/scripts/enter_qarm.sh
+ros2 action send_goal /move_qarm qarm_interfaces/action/MoveQArm "{task_space_pose: [0.2, 0.0, 0.2, 0.0]}" --feedback
+
+# IF SOURCE OF DIFFERENT ENVIRONMENT DOESNT WORK USE:
+    Source Build the workspace and set the correct python
+    source /opt/ros/kilted/setup.bash
+    colcon build --symlink-install #One-time to accept all changes between files
+    source install/setup.bash
+    export PYTHONNOUSERSITE=1
+
+
 
