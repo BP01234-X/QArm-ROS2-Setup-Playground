@@ -30,6 +30,7 @@ setup(
             'move_qarm_server=qarm_nodes.move_qarm_server:main',
             'move_qarm_client=qarm_nodes.move_qarm_client:main',
             'rgbd=qarm_nodes.rgbd:main',
+            'qarm_keyboard_control=qarm_nodes.qarm_keyboard_control:main',
         ],
     },
 )

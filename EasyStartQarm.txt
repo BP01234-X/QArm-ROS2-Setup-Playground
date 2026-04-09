@@ -25,5 +25,3 @@ ros2 action send_goal /move_qarm qarm_interfaces/action/MoveQArm "{task_space_po
     source install/setup.bash
     export PYTHONNOUSERSITE=1
 
-
-
