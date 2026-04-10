@@ -17,6 +17,15 @@ class QArmActionClient(Node):
         # print(self.get_parameter('goal_pose').get_parameter_value())
         self.goal_pose = self.get_parameter(
             'goal_pose').get_parameter_value().double_array_value
+        self.declare_parameter('mode', 'GOAL_TASK')
+        mode_raw = str(self.get_parameter('mode').value).upper()
+        mode_map = {
+            'GOAL_TASK': MoveQArm.Goal.GOAL_TASK,
+            'CONTINOUS_CONTROL': MoveQArm.Goal.CONTINOUS_CONTROL,
+            'CONTINUOUS_CONTROL': MoveQArm.Goal.CONTINOUS_CONTROL,
+        }
+        self.mode = mode_map.get(mode_raw, MoveQArm.Goal.GOAL_TASK)
+
     
     def send_goal(self,goal_pose):
         # Wait for the server
@@ -24,7 +33,9 @@ class QArmActionClient(Node):
 
         # Construct goal msg
         goal_msg = MoveQArm.Goal()
-        goal_msg.task_space_pose=goal_pose
+        goal_msg.mode = self.mode
+        goal_msg.task_space_pose = goal_pose
+
 
         # Send the goal
         self.get_logger().info(f'Sending goal {goal_pose}')
@@ -57,7 +68,6 @@ class QArmActionClient(Node):
             self.get_logger().info('Goal failed to cancel')
 
 def main(args=None):
-    qarm_action_client = None
     try:
         with rclpy.init(args=args):
             qarm_action_client = QArmActionClient('move_qarm')
@@ -67,12 +77,10 @@ def main(args=None):
             rclpy.spin(qarm_action_client)
 
     except (KeyboardInterrupt, ExternalShutdownException):
-        if qarm_action_client is not None:
-            qarm_action_client.cancel()
+        qarm_action_client.cancel()
 
     finally:
-        if qarm_action_client is not None:
-            qarm_action_client.destroy_node()
+        qarm_action_client.destroy_node()
 
 
 if __name__ == '__main__':

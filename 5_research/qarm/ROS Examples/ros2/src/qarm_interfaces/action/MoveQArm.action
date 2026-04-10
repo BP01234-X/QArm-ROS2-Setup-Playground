@@ -1,7 +1,4 @@
 # goal
-int8 GOAL_TASK=0
-int8 CONTINOUS_CONTROL=1
-int8 mode
 float64[4] task_space_pose
 ---
 # result
