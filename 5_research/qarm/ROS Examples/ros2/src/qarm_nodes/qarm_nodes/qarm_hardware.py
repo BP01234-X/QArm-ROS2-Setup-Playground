@@ -14,7 +14,12 @@ class QarmHardware(Node):
         super().__init__('qarm_hardware')
 
 		# Initialize QArm
-        self.myArm = QArm()
+        #self.myArm = QArm() NORMAL WAY TO CALL 1 QARM
+        #TESTING FOR 2 QARMS CALL ON ROS2
+        self.declare_parameter('device_id', 0)
+        device_id = int(self.get_parameter('device_id').value)
+        self.myArm = QArm(deviceId=device_id)
+        #END OF TESTING FOR 2 QARMS CALL ON ROS2
 
         self.last_cmd_time = self.get_clock().now()
         self.cmd_timeout_sec = 0.5

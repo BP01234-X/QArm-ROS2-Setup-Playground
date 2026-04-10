@@ -2,10 +2,10 @@
 cd ~/Documents/QArm-ROS2-Setup-Playground/5_research/qarm/ROS\ Examples/ros2
 
 #Source of different environment
-source ~/qarm_env/scripts/enter_qarm.sh
+source ~/qarm_env/scripts/enter_qarm.sh #Origional of Quanser_Academic_Resources
 
 #after changessource 
-source ~/qarm_env/scripts/enter_qarm.sh
+source ~/qarm_env/scripts/enter_qarm_playground.sh
 colcon build --symlink-install
 source install/setup.bash
 
