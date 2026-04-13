@@ -1,0 +1,9 @@
+cd "/path/to/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2"
+  source /opt/ros/kilted/setup.bash
+  source ./enter_qarm.sh
+  colcon build --symlink-install
+  source install/setup.bash
+
+
+#Run nodes
+ros2 run qarm_nodes qarm_hardware

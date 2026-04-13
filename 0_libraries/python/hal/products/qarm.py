@@ -306,9 +306,9 @@ class QArmUtilities():
 
         c = npla.cond(J) #condition number for the Jacobian
         r = npla.matrix_rank(J) # rank number for the jacobian
-        J_inv = npla.inv(J) # inverse of the jacobian matrix
-
-        return J, c, r, J_inv
+        # J_inv = npla.inv(J) # inverse of the jacobian matrix
+        # Note for singularity handling: we will use J_inv after the singularity check.
+        return J, c, r #, J_inv
 
     @staticmethod
     def take_widget_mass():
