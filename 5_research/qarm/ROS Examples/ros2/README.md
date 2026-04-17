@@ -38,17 +38,45 @@ colcon build --symlink-install
 
 ## Run
 
-Launch the stock QArm example:
+Launch the QArm stack with the experimental Codex JSON bridge:
 
 ```bash
 ros2 launch qarm_nodes move_qarm.py
 ```
 
-Send a goal manually:
+## File Bridge Control
+
+`ros2 launch qarm_nodes move_qarm.py` now starts:
+
+- `qarm_hardware`
+- `move_qarm_server`
+- `rgbd`
+- the experimental bridge watcher in `src/qarm_nodes/Experimentals_QArm/codex-testing/bridge_commander.py`
+
+Use your working ROS 2 terminal:
 
 ```bash
-ros2 run qarm_nodes move_qarm_client --ros-args -p goal_pose:="[0.45, 0.0, 0.5, 0.0]"
+cd "/path/to/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2"
+source ./enter_qarm.sh
+colcon build --symlink-install
+source install/setup.bash
+ros2 launch qarm_nodes move_qarm.py
 ```
+
+Then edit
+`src/qarm_nodes/Experimentals_QArm/codex-testing/target_pose.json`. Each new
+`goal_id` with `enabled: true` triggers a new goal:
+
+```json
+{
+  "goal_id": "pose-001",
+  "goal_pose": [0.45, 0.0, 0.35, 0.0],
+  "enabled": true
+}
+```
+
+Live bridge feedback is written to
+`src/qarm_nodes/Experimentals_QArm/codex-testing/status.json`.
 
 ## Python Environment Notes
 
@@ -80,13 +108,6 @@ rm -rf build install log
 
 ## Experimentals
 
-Keeping an `Experimentals/` folder in the repo is fine.
-
-It only becomes a problem if:
-
-- you add it to `setup.py` entry points
-- you import it from the runtime nodes by default
-- you reference it from launch files
-
-If it is just parked source you plan to revisit later, it is safe to keep in
-GitHub.
+The Codex JSON bridge is intentionally stored under
+`Experimentals_QArm/codex-testing` so it stays separate from the main ROS node
+package modules while still being launchable from `move_qarm.py`.

@@ -1,0 +1,48 @@
+{
+  "state": "streaming",
+  "message": "Received depth frame.",
+  "topics": {
+    "color": "qarm_camera/color",
+    "depth": "qarm_camera/depth",
+    "ir_left": "qarm_camera/ir_left",
+    "ir_right": "qarm_camera/ir_right"
+  },
+  "frames": {
+    "color": {
+      "frame_id": "camera_color",
+      "stamp": {
+        "sec": 1776383891,
+        "nanosec": 370773657
+      },
+      "shape": [
+        480,
+        640,
+        3
+      ],
+      "center_pixel_bgr": [
+        155,
+        152,
+        156
+      ],
+      "mean_bgr": [
+        108.19,
+        109.13,
+        105.5
+      ]
+    },
+    "depth": {
+      "frame_id": "camera_depth",
+      "stamp": {
+        "sec": 1776383891,
+        "nanosec": 370773657
+      },
+      "shape": [
+        480,
+        640
+      ],
+      "center_depth_m": 3.035,
+      "min_depth_m": 0.0,
+      "max_depth_m": 15.354
+    }
+  }
+}

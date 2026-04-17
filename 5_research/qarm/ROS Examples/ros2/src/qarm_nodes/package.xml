@@ -12,6 +12,7 @@
 
   <depend>rclpy</depend>
   <depend>qarm_interfaces</depend>
+  <exec_depend>ament_index_python</exec_depend>
 
   <exec_depend>rosidl_default_runtime</exec_depend>
 

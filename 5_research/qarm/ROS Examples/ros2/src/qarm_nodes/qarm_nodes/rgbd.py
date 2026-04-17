@@ -4,7 +4,7 @@ from rclpy.qos import QoSProfile
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import ExternalShutdownException
 from cv_bridge import CvBridge
-from image_transport_py import ImageTransport
+from sensor_msgs.msg import Image
 
 from pal.products.qarm import QArmRealSense
 
@@ -37,12 +37,11 @@ class QArmCamera(Node):
             )
         
         self.bridge = CvBridge()
-        self.image_transport = ImageTransport('imagetransport_pub')
         qos = QoSProfile(depth=10)
         
         # Publishers
-        self.color_pub = self.image_transport.advertise('qarm_camera/color',10)
-        self.depth_pub = self.image_transport.advertise('qarm_camera/depth',10)
+        self.color_pub = self.create_publisher(Image, 'qarm_camera/color', qos)
+        self.depth_pub = self.create_publisher(Image, 'qarm_camera/depth', qos)
         
         # Timer
         period = 1.0 / self.fps

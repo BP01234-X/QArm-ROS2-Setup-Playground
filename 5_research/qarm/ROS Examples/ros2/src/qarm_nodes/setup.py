@@ -23,6 +23,16 @@ setup(
         # (uncomment if applicable)
         (os.path.join('share', package_name, 'launch'),
          glob(os.path.join('launch', '*.py'))),
+        (
+            os.path.join('share', package_name, 'Experimentals_QArm'),
+            glob(os.path.join('Experimentals_QArm', '*.py'))
+        ),
+        (
+            os.path.join('share', package_name, 'Experimentals_QArm', 'codex-testing'),
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', '*.py')) +
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', '*.txt')) +
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', '*.json'))
+        ),
     ],
     entry_points={
         'console_scripts': [

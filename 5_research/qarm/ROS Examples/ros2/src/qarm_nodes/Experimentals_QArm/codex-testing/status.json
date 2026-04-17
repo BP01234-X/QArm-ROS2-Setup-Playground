@@ -1,0 +1,16 @@
+{
+  "state": "succeeded",
+  "message": "QArm has reached the target pose.",
+  "active_goal_id": "wide-line-043",
+  "active_goal_pose": [
+    0.45,
+    0.0,
+    0.49,
+    0.0
+  ],
+  "active_gripper": 0.1,
+  "success": true,
+  "bridge_dir": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing",
+  "target_file": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/target_pose.json",
+  "status_file": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/status.json"
+}
