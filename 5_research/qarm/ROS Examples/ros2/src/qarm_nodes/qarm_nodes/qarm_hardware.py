@@ -98,17 +98,10 @@ class QarmHardware(Node):
         # ---- Publish joint state ----
         msg = JointState()
         msg.header.stamp = self.get_clock().now().to_msg()
-        msg.name = [
-            'base_joint',
-            'shoulder_joint',
-            'arm_joint',
-            'wrist_joint',
-            'gripper_joint'
-        ]
-
-        msg.position = list(self.myArm.measJointPosition)
-        msg.velocity = list(self.myArm.measJointSpeed)
-        msg.effort = list(self.myArm.measJointCurrent) # TODO: estimation of joint force from current
+        msg.name = ['YAW', 'SHOULDER', 'ELBOW', 'WRIST']
+        msg.position = list(self.myArm.measJointPosition[:4])
+        msg.velocity = list(self.myArm.measJointSpeed[:4])
+        msg.effort = list(self.myArm.measJointCurrent[:4]) # TODO: estimation of joint force from current
 
         self.joint_state_pub_.publish(msg)
 

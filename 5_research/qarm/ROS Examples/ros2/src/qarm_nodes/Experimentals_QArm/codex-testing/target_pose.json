@@ -1,12 +1,12 @@
 {
-  "goal_id": "wide-line-043",
+  "goal_id": "base-90-test-001",
   "goal_pose": [
-    0.45,
     0.0,
+    0.45,
     0.49,
     0.0
   ],
   "gripper": 0.1,
   "enabled": true,
-  "note": "Return to safe home open after wider line."
+  "note": "Test a 90 degree base rotation by rotating the XY target and keeping wrist neutral."
 }
