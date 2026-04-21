@@ -24,6 +24,10 @@ setup(
         (os.path.join('share', package_name, 'launch'),
          glob(os.path.join('launch', '*.py'))),
         (
+            os.path.join('share', package_name, 'urdf'),
+            glob(os.path.join('urdf', '*.urdf'))
+        ),
+        (
             os.path.join('share', package_name, 'Experimentals_QArm'),
             glob(os.path.join('Experimentals_QArm', '*.py'))
         ),

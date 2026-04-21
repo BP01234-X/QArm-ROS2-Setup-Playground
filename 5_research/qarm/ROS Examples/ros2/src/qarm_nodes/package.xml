@@ -12,7 +12,14 @@
 
   <depend>rclpy</depend>
   <depend>qarm_interfaces</depend>
+  <exec_depend>qarm</exec_depend>
+  <exec_depend>qarm_gripper</exec_depend>
   <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
 
   <exec_depend>rosidl_default_runtime</exec_depend>
 
