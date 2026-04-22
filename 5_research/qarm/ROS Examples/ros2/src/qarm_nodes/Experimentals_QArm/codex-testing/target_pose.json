@@ -1,12 +1,7 @@
 {
-  "goal_id": "base-90-test-001",
-  "goal_pose": [
-    0.0,
-    0.45,
-    0.49,
-    0.0
-  ],
+  "goal_id": "gripper-loop-stopped",
+  "goal_pose": [0.0, 0.45, 0.49, 0.0],
   "gripper": 0.1,
-  "enabled": true,
-  "note": "Test a 90 degree base rotation by rotating the XY target and keeping wrist neutral."
+  "enabled": false,
+  "note": "Codex stopped the temporary gripper loop and parked the file in a non-replay state."
 }
