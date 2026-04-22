@@ -1,0 +1,7 @@
+board_origin_world_xyz:
+  - 0.050
+  - -0.140
+  - 0.000
+square_size_m: 0.0375
+board_height_z: 0.012
+board_frame_name: chess_board

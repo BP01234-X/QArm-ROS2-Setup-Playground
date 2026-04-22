@@ -1,0 +1,9 @@
+observer_pose_name: chess_observer
+observer_world_xyz:
+  - 0.149
+  - -0.015
+  - 0.190
+observer_rpy:
+  - 0.0
+  - 0.0
+  - 0.094

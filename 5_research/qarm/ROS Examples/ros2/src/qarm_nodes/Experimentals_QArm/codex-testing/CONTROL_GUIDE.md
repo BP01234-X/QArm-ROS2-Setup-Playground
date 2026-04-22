@@ -21,10 +21,52 @@ Do not add extra control layers unless needed. The expected live-control loop is
 
 - `bridge_commander.py`
 - `gripper_cycle.py`
+- `pose_record.py`
+- `record_named_pose.py`
+- `go_named_pose.py`
 - `rgbd_subscriber.py`
+- `saved_poses.json`
 - `target_pose.json`
 - `status.json`
+- `camera_status.json`
 - `src/qarm_nodes/launch/move_qarm.py`
+- `src/qarm_nodes/launch/gui_qarm.py`
+
+## Catch-Up
+
+This workspace has evolved beyond the original minimal JSON bridge.
+
+Current important updates:
+
+- `bridge_commander.py` now subscribes to `/qarm/joint_states`
+- `status.json` now exposes:
+  - `live_joint_positions`
+  - `live_task_space_pose`
+  - `live_joint_stamp`
+- named pose storage now exists in `saved_poses.json`
+- named pose replay now exists through `go_named_pose.py`
+- the QArm camera TF is explicitly modeled in URDF as:
+  - `END-EFFECTOR`
+  - `left_ir_frame`
+  - `left_ir_optical_frame`
+- `rgbd.py` now also publishes:
+  - `/camera/depth/image_rect_raw`
+  - `/camera/depth/camera_info`
+- `gui_qarm.py` can now launch:
+  - robot TF / `robot_description`
+  - `rgbd`
+  - `depth_image_proc` XYZ point cloud
+  - RViz2
+- the first working depth cloud topic is:
+  - `/camera/depth/points`
+
+This means the system can now:
+
+- control motion through `target_pose.json`
+- report the live held task-space pose in `status.json`
+- save named poses
+- replay named poses
+- publish a world-placed depth cloud in RViz when TF is correct
 
 ## How To Start The System
 
@@ -128,6 +170,29 @@ python3 src/qarm_nodes/Experimentals_QArm/codex-testing/go_named_pose.py Chess_o
 
 That writes a fresh `goal_id` into `target_pose.json` and sets
 `enabled=true` so the bridge sends the move.
+
+Write a named pose into `target_pose.json` but keep it parked:
+
+```bash
+python3 src/qarm_nodes/Experimentals_QArm/codex-testing/go_named_pose.py Chess_observing
+```
+
+That writes the pose with `enabled=false`, so the bridge sees it but does not
+execute it.
+
+If the user wants a startup-safe hold-and-record path, use:
+
+```bash
+python3 src/qarm_nodes/Experimentals_QArm/codex-testing/pose_record.py Chess_observing
+```
+
+That helper is intended to:
+
+- start `qarm_hardware`
+- start `move_qarm_server`
+- start `bridge_commander.py`
+- hold the measured startup pose instead of pushing zeros immediately
+- save the startup pose into `saved_poses.json`
 
 ## Experimental Gripper Control
 
@@ -301,13 +366,19 @@ pgrep -af 'python3 -'
 
 ## Camera Integration Status
 
-Camera-assisted targeting is only partially wired.
+Camera-assisted targeting is now partially wired end-to-end.
 
 Current facts:
 
 - `qarm_nodes/qarm_nodes/rgbd.py` publishes `qarm_camera/color`
 - `qarm_nodes/qarm_nodes/rgbd.py` publishes `qarm_camera/depth`
-- it does not currently publish IR topics
+- `qarm_nodes/qarm_nodes/rgbd.py` also publishes:
+  - `/camera/depth/image_rect_raw`
+  - `/camera/depth/camera_info`
+- the depth messages use `left_ir_optical_frame`
+- `gui_qarm.py` can launch `depth_image_proc/point_cloud_xyz_node`
+- the first working point cloud topic is `/camera/depth/points`
+- RViz can place that cloud in `world` if TF is correct
 - `codex-testing/rgbd_subscriber.py` can subscribe to color and depth now
 - `codex-testing/rgbd_subscriber.py` also listens for optional IR topics if they
   are added later
@@ -353,21 +424,26 @@ What the current ROS node actually publishes:
 
 - `qarm_camera/color`
 - `qarm_camera/depth`
+- `/camera/depth/image_rect_raw`
+- `/camera/depth/camera_info`
+- `/camera/depth/points` when `depth_image_proc` is running
 
-The current `rgbd.py` path does not publish:
+What the current `rgbd.py` path still does not publish:
 
 - IR topics
-- camera intrinsics
-- camera extrinsics
+- RGB camera intrinsics
+- RGB camera extrinsics
 - object detections
-- point clouds
+- semantic detections or tracked objects
 
 That means an AI can currently interpret the scene at this level:
 
 - confirm that RGB is streaming
 - confirm that depth is streaming
+- confirm that a point cloud is streaming
 - inspect RGB pixel values
 - inspect depth values in meters
+- inspect the world-placed point cloud in RViz
 - reason about rough distance to visible surfaces
 - implement simple RGB/depth-based object detection if needed
 
@@ -395,11 +471,20 @@ Current practical interpretation rule:
 
 Do not assume:
 
-- the camera frame origin
-- camera-to-arm extrinsics
-- pixel-to-meter conversion
+- the RGB camera frame origin
+- RGB camera-to-arm extrinsics
 - object pose format
-- depth source
+- that the point cloud is color-aligned to RGB
+
+Known current camera TF:
+
+- `END-EFFECTOR`
+- `left_ir_frame`
+- `left_ir_optical_frame`
+
+The current first-pass robot-to-camera transform is hand-measured from the left
+IR / left depth lens and is intended as a working TF, not final hand-eye
+calibration.
 
 When the user explains the camera feed format, update this guide with:
 
@@ -422,6 +507,9 @@ When the user explains the camera feed format, update this guide with:
 - applies gripper-only updates without resending the same pose goal
 - cancels the current goal if a new one arrives during motion
 - writes live state to `status.json`
+- subscribes to `/qarm/joint_states`
+- computes live forward kinematics
+- exposes the currently held live pose in `status.json` as `live_task_space_pose`
 
 ## What Not To Do
 

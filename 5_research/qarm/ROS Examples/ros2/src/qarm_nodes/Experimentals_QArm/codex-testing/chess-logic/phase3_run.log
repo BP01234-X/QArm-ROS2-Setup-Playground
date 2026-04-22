@@ -1,0 +1,59 @@
+=== BOOT ===
+FSM state=IDLE | robot_busy=False | pending_move=<none> | last_error=<none>
+OBSERVED BOARD | t=1776878106.316
+8 | BR BN BB BQ BK BB BN BR
+7 | BP BP BP BP BP BP BP BP
+6 | .. .. .. .. .. .. .. ..
+5 | .. .. .. .. .. .. .. ..
+4 | .. .. .. .. .. .. .. ..
+3 | .. .. .. .. .. .. .. ..
+2 | WP WP WP WP WP WP WP WP
+1 | WR WN WB WQ WK WB WN WR
+    A B C D E F G H
+EXPECTED BOARD | side=white | move=1
+8 | BR BN BB BQ BK BB BN BR
+7 | BP BP BP BP BP BP BP BP
+6 | .. .. .. .. .. .. .. ..
+5 | .. .. .. .. .. .. .. ..
+4 | .. .. .. .. .. .. .. ..
+3 | .. .. .. .. .. .. .. ..
+2 | WP WP WP WP WP WP WP WP
+1 | WR WN WB WQ WK WB WN WR
+    A B C D E F G H
+=== MOVE REQUEST ===
+LAST MOVE | e2e4
+=== FINAL SNAPSHOT ===
+FSM state=IDLE | robot_busy=False | pending_move=<none> | last_error=<none>
+LAST MOVE | e2e4
+GRIPPER TARGET | 0.7
+PLANNED PHASES | PLAN_MOVE -> MOVE_TO_PICK -> GRIPPER_PREPARE -> PICK -> LIFT -> MOVE_TO_PLACE -> PLACE -> RETREAT -> END_MOVEMENT
+PLANNED GRIPPER | open=0.7 close=0.9
+FEN | rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b - - 0 1
+HISTORY | e2e4
+EXPECTED BOARD | side=black | move=1
+8 | BR BN BB BQ BK BB BN BR
+7 | BP BP BP BP BP BP BP BP
+6 | .. .. .. .. .. .. .. ..
+5 | .. .. .. .. .. .. .. ..
+4 | .. .. .. .. WP .. .. ..
+3 | .. .. .. .. .. .. .. ..
+2 | WP WP WP WP .. WP WP WP
+1 | WR WN WB WQ WK WB WN WR
+    A B C D E F G H
+VERIFICATION | success
+=== EXECUTOR LOG ===
+MOCK: set_gripper(0.7)
+MOCK: move_to_observer_pose name=chess_observer xyz=(0.149, -0.015, 0.19) rpy=(0.0, 0.0, 0.094)
+MOCK: set_gripper(0.7)
+MOCK: move_to_square_above square=e2
+MOCK: set_gripper(0.7)
+MOCK: execute_pick square=e2 pick_height_m=0.030
+MOCK: set_gripper(0.9)
+MOCK: lift_piece square=e2 approach_height_m=0.080
+MOCK: set_gripper(0.9)
+MOCK: move_to_square_above square=e4
+MOCK: execute_place square=e4 place_height_m=0.032
+MOCK: set_gripper(0.7)
+MOCK: retreat_vertical
+MOCK: set_gripper(0.7)
+MOCK: move_to_observer_pose name=chess_observer xyz=(0.149, -0.015, 0.19) rpy=(0.0, 0.0, 0.094)

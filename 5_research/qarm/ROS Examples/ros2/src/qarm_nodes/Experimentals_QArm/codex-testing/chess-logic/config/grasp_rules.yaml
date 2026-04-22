@@ -1,0 +1,8 @@
+approach_height_m: 0.080
+lift_height_m: 0.110
+pick_height_offset_m: 0.018
+place_height_offset_m: 0.020
+preferred_vertical_grasp: true
+avoid_tilt_band_deg:
+  - 35
+  - 55
