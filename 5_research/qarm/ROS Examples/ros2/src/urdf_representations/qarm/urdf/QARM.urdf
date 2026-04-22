@@ -283,4 +283,31 @@
       effort="0"
       velocity="0" />
   </joint>
+
+  <!-- First working hand-measured RealSense D415 TF.
+       This is referenced from the measured LEFT IR / LEFT DEPTH lens point.
+       The RealSense dump on hand is stereo-side data, so only the left IR
+       optical frame is introduced here. RGB/depth alignment should be added
+       later from actual internal camera extrinsics or runtime topics. -->
+  <link name="left_ir_frame"/>
+  <joint name="left_ir_mount_joint" type="fixed">
+    <!-- Measured from END-EFFECTOR to the LEFT IR lens reference point.
+         QArm tool convention used for this first pass:
+         +X up, +Y right, +Z forward.
+         This body frame is an intermediate non-optical camera frame.
+         The direct measured optical-frame assumption is:
+         optical X = tool +Y, optical Y = tool -X, optical Z = tool +Z. -->
+    <origin xyz="0.052 0.039 -0.040" rpy="3.14159265359 -1.57079632679 0.0" />
+    <parent link="END-EFFECTOR" />
+    <child link="left_ir_frame" />
+  </joint>
+
+  <link name="left_ir_optical_frame"/>
+  <joint name="left_ir_optical_joint" type="fixed">
+    <!-- Standard ROS optical frame convention:
+         +X right in image, +Y down in image, +Z forward / depth. -->
+    <origin xyz="0 0 0" rpy="-1.57079632679 0.0 -1.57079632679" />
+    <parent link="left_ir_frame" />
+    <child link="left_ir_optical_frame" />
+  </joint>
 </robot>

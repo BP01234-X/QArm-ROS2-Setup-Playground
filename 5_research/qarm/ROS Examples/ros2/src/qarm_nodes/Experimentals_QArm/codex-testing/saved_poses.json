@@ -1,0 +1,16 @@
+{
+  "poses": {
+    "Chess_observing": {
+      "goal_pose": [
+        0.148994,
+        -0.014563,
+        0.160484,
+        0.094363
+      ],
+      "gripper": 0.1,
+      "recorded_at": "2026-04-22T00:00:00+00:00",
+      "source": "bridge live_task_space_pose",
+      "note": "Updated from the live held pose reported by bridge status.json."
+    }
+  }
+}

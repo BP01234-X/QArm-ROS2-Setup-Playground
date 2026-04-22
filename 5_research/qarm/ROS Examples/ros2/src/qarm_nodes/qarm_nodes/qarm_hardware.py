@@ -17,7 +17,9 @@ class QarmHardware(Node):
         #self.myArm = QArm() NORMAL WAY TO CALL 1 QARM
         #TESTING FOR 2 QARMS CALL ON ROS2
         self.declare_parameter('device_id', 0)
+        self.declare_parameter('hold_startup_pose', True)
         device_id = int(self.get_parameter('device_id').value)
+        hold_startup_pose = bool(self.get_parameter('hold_startup_pose').value)
         self.myArm = QArm(deviceId=device_id)
         #END OF TESTING FOR 2 QARMS CALL ON ROS2
 
@@ -29,6 +31,15 @@ class QarmHardware(Node):
         #self.gripper_command = np.zeros(1, dtype=np.float64) Bug BY Quanser feeding an array instead of direct scalar.
         self.gripper_command = 0.1
         self.LED_command = np.zeros(3, dtype=np.float64)
+        self.startup_pose_latched = False
+
+        if self.myArm.status and hold_startup_pose:
+            self.myArm.read_std()
+            self.joint_command[:] = self.myArm.measJointPosition[:4]
+            self.startup_pose_latched = True
+            self.get_logger().info(
+                f'Latched startup pose as hold command: {self.joint_command.tolist()}'
+            )
 
         # QoS profile for publisher/subscriber
         qos_profile = QoSProfile(depth=10)

@@ -1,10 +1,32 @@
 {
-  "state": "idle",
-  "message": "Target file updated but enabled=false, ignoring command.",
-  "active_goal_id": null,
-  "active_goal_pose": null,
-  "active_gripper": null,
-  "bridge_dir": "/home/quanser/Documents/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing",
-  "target_file": "/home/quanser/Documents/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/target_pose.json",
-  "status_file": "/home/quanser/Documents/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/status.json"
+  "state": "succeeded",
+  "message": "QArm has reached the target pose.",
+  "active_goal_id": "home-20260422-return-1",
+  "active_goal_pose": [
+    0.45,
+    0.0,
+    0.49,
+    0.0
+  ],
+  "active_gripper": 0.1,
+  "success": true,
+  "bridge_dir": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing",
+  "target_file": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/target_pose.json",
+  "status_file": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/status.json",
+  "live_joint_positions": [
+    -0.002302,
+    0.009973,
+    0.05447,
+    0.002302
+  ],
+  "live_task_space_pose": [
+    0.452657,
+    -0.001042,
+    0.463725,
+    0.002302
+  ],
+  "live_joint_stamp": {
+    "sec": 1776869116,
+    "nanosec": 504731919
+  }
 }

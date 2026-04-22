@@ -1,7 +1,12 @@
 {
-  "goal_id": "gripper-loop-stopped",
-  "goal_pose": [0.0, 0.45, 0.49, 0.0],
-  "gripper": 0.1,
-  "enabled": false,
-  "note": "Codex stopped the temporary gripper loop and parked the file in a non-replay state."
+  "goal_id": "home-20260422-return-1",
+  "goal_pose": [
+    0.45,
+    0.0,
+    0.49,
+    0.0
+  ],
+  "enabled": true,
+  "note": "Return to the safer normalized home pose.",
+  "gripper": 0.1
 }

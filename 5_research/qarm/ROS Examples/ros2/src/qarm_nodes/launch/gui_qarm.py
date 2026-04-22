@@ -41,6 +41,25 @@ def _launch_setup(context, plain_urdf_path: Path, combined_urdf_path: Path):
             condition=IfCondition(LaunchConfiguration('use_joint_state_gui')),
         ),
         Node(
+            package='qarm_nodes',
+            executable='rgbd',
+            name='qarm_camera',
+            output='screen',
+            condition=IfCondition(LaunchConfiguration('use_camera')),
+        ),
+        Node(
+            package='depth_image_proc',
+            executable='point_cloud_xyz_node',
+            name='depth_point_cloud_xyz',
+            output='screen',
+            remappings=[
+                ('image_rect', '/camera/depth/image_rect_raw'),
+                ('camera_info', '/camera/depth/camera_info'),
+                ('points', '/camera/depth/points'),
+            ],
+            condition=IfCondition(LaunchConfiguration('use_depth_point_cloud')),
+        ),
+        Node(
             package='rviz2',
             executable='rviz2',
             name='rviz2',
@@ -73,6 +92,16 @@ def generate_launch_description():
         default_value='true',
         description='Use the combined QArm + gripper observer URDF.',
     )
+    use_camera = DeclareLaunchArgument(
+        'use_camera',
+        default_value='true',
+        description='Launch the QArm depth camera publisher.',
+    )
+    use_depth_point_cloud = DeclareLaunchArgument(
+        'use_depth_point_cloud',
+        default_value='true',
+        description='Launch depth_image_proc XYZ point cloud generation.',
+    )
 
     plain_urdf_path = qarm_share / 'urdf' / 'QARM.urdf'
     combined_urdf_path = qarm_nodes_share / 'urdf' / 'QARM_with_gripper.urdf'
@@ -82,6 +111,8 @@ def generate_launch_description():
         use_hardware,
         device_id,
         include_gripper,
+        use_camera,
+        use_depth_point_cloud,
         OpaqueFunction(
             function=lambda context: _launch_setup(
                 context,

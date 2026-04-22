@@ -8,8 +8,10 @@ import rclpy
 from rclpy.action import ActionClient
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
+from sensor_msgs.msg import JointState
 from std_msgs.msg import Float64
 
+from hal.products.qarm import QArmUtilities
 from qarm_interfaces.action import MoveQArm
 
 
@@ -32,6 +34,13 @@ class BridgeCommander(Node):
         self.target_file.touch(exist_ok=True)
         self.action_client = ActionClient(self, MoveQArm, 'move_qarm')
         self.gripper_pub = self.create_publisher(Float64, '/qarm/gripper_cmd', 10)
+        self.joint_state_sub = self.create_subscription(
+            JointState,
+            '/qarm/joint_states',
+            self._joint_state_cb,
+            10,
+        )
+        self.arm_util = QArmUtilities()
 
         self.last_payload_fingerprint = ''
         self.active_goal_handle = None
@@ -40,6 +49,9 @@ class BridgeCommander(Node):
         self.last_executed_signature: str | None = None
         self.last_pose_signature: str | None = None
         self.last_gripper_value: float | None = None
+        self.live_joint_positions: list[float] | None = None
+        self.live_task_space_pose: list[float] | None = None
+        self.live_joint_stamp: dict[str, int] | None = None
 
         self._ensure_target_template()
         self._write_status(
@@ -67,7 +79,27 @@ class BridgeCommander(Node):
         payload.setdefault('bridge_dir', str(self.bridge_dir))
         payload.setdefault('target_file', str(self.target_file))
         payload.setdefault('status_file', str(self.status_file))
+        payload.setdefault('live_joint_positions', self.live_joint_positions)
+        payload.setdefault('live_task_space_pose', self.live_task_space_pose)
+        payload.setdefault('live_joint_stamp', self.live_joint_stamp)
         self.status_file.write_text(json.dumps(payload, indent=2) + '\n', encoding='utf-8')
+
+    def _joint_state_cb(self, msg: JointState) -> None:
+        if len(msg.position) < 4:
+            return
+        phi = [float(v) for v in msg.position[:4]]
+        position, _ = self.arm_util.forward_kinematics(phi)
+        self.live_joint_positions = [round(v, 6) for v in phi]
+        self.live_task_space_pose = [
+            round(float(position[0]), 6),
+            round(float(position[1]), 6),
+            round(float(position[2]), 6),
+            round(float(phi[3]), 6),
+        ]
+        self.live_joint_stamp = {
+            'sec': int(msg.header.stamp.sec),
+            'nanosec': int(msg.header.stamp.nanosec),
+        }
 
     def _poll_target_file(self) -> None:
         try:

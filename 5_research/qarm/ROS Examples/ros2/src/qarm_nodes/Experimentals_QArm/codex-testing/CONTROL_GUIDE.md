@@ -91,6 +91,44 @@ Rules:
 - `enabled` must be `true` for the bridge to send the move.
 - The bridge writes result and feedback to `status.json`.
 
+## Named Pose Workflow
+
+The `codex-testing` folder now supports saving named poses and replaying them
+through the JSON bridge.
+
+Files:
+
+- `saved_poses.json`
+- `record_named_pose.py`
+- `go_named_pose.py`
+
+Record the current live arm pose from `/qarm/joint_states`:
+
+```bash
+cd "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2"
+source ./enter_qarm.sh
+source install/setup.bash
+python3 src/qarm_nodes/Experimentals_QArm/codex-testing/record_named_pose.py Chess_observing
+```
+
+Optionally store a gripper value along with the pose:
+
+```bash
+python3 src/qarm_nodes/Experimentals_QArm/codex-testing/record_named_pose.py Chess_observing --gripper 0.1
+```
+
+If the bridge is already exposing a live held pose in `status.json`, that pose
+may also be copied into `saved_poses.json` manually or by a helper script.
+
+Replay a named pose through `target_pose.json`:
+
+```bash
+python3 src/qarm_nodes/Experimentals_QArm/codex-testing/go_named_pose.py Chess_observing --enable
+```
+
+That writes a fresh `goal_id` into `target_pose.json` and sets
+`enabled=true` so the bridge sends the move.
+
 ## Experimental Gripper Control
 
 There are two experimental gripper paths:
