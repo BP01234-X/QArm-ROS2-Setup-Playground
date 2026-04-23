@@ -37,6 +37,27 @@ setup(
             glob(os.path.join('Experimentals_QArm', 'codex-testing', '*.txt')) +
             glob(os.path.join('Experimentals_QArm', 'codex-testing', '*.json'))
         ),
+        (
+            os.path.join('share', package_name, 'Experimentals_QArm', 'codex-testing', 'chess-logic'),
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', 'chess-logic', '*.py')) +
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', 'chess-logic', '*.md')) +
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', 'chess-logic', '*.txt')) +
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', 'chess-logic', '*.log')) +
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', 'chess-logic', 'requirements.txt'))
+        ),
+        (
+            os.path.join('share', package_name, 'Experimentals_QArm', 'codex-testing', 'chess-logic', 'config'),
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', 'chess-logic', 'config', '*.yaml'))
+        ),
+        (
+            os.path.join('share', package_name, 'Experimentals_QArm', 'codex-testing', 'chess-logic', 'kinematics'),
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', 'chess-logic', 'kinematics', '*.py'))
+        ),
+        (
+            os.path.join('share', package_name, 'Experimentals_QArm', 'codex-testing', 'image-recorder'),
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', 'image-recorder', '*.py')) +
+            glob(os.path.join('Experimentals_QArm', 'codex-testing', 'image-recorder', '*.md'))
+        ),
     ],
     entry_points={
         'console_scripts': [

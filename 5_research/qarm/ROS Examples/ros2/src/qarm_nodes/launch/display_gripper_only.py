@@ -1,1 +1,0 @@
-/home/quanser/Documents/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/urdf_representations/qarm_gripper/launch/display_gripper_only.py

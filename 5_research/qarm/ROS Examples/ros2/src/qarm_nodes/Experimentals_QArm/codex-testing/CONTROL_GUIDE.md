@@ -22,13 +22,17 @@ Do not add extra control layers unless needed. The expected live-control loop is
 - `bridge_commander.py`
 - `gripper_cycle.py`
 - `pose_record.py`
+- `start_qarm_hardware_hold.py`
 - `record_named_pose.py`
 - `go_named_pose.py`
 - `rgbd_subscriber.py`
+- `bridge_kinematics_monitor.py`
+- `image-recorder/rolling_rgbd_recorder.py`
 - `saved_poses.json`
 - `target_pose.json`
 - `status.json`
 - `camera_status.json`
+- `kinematics_status.json`
 - `src/qarm_nodes/launch/move_qarm.py`
 - `src/qarm_nodes/launch/gui_qarm.py`
 
@@ -59,11 +63,14 @@ Current important updates:
   - RViz2
 - the first working depth cloud topic is:
   - `/camera/depth/points`
+- the bridge can now also write `kinematics_status.json` with ranked observer
+  pose candidates around the live bridge pose
 
 This means the system can now:
 
 - control motion through `target_pose.json`
 - report the live held task-space pose in `status.json`
+- publish bridge-facing observer-pose ranking into `kinematics_status.json`
 - save named poses
 - replay named poses
 - publish a world-placed depth cloud in RViz when TF is correct
@@ -105,6 +112,37 @@ ros2 launch qarm_nodes move_qarm.py enable_gripper_cycle:=true
 
 That runs `gripper_cycle.py`, which closes the gripper, waits 3 seconds, then
 opens it.
+
+The rolling RGB/depth image recorder now starts by default with
+`move_qarm.py`. It writes bounded recent snapshots into:
+
+- `src/qarm_nodes/Experimentals_QArm/codex-testing/image-recorder`
+
+Disable it if needed with:
+
+```bash
+ros2 launch qarm_nodes move_qarm.py enable_image_recorder:=false
+```
+
+The bridge-aware kinematics helper now also starts by default with
+`move_qarm.py`. It writes live observer-pose analysis into:
+
+- `src/qarm_nodes/Experimentals_QArm/codex-testing/kinematics_status.json`
+
+Disable it if needed with:
+
+```bash
+ros2 launch qarm_nodes move_qarm.py enable_kinematics_helper:=false
+```
+
+Tune retention / save interval with:
+
+```bash
+ros2 launch qarm_nodes move_qarm.py \
+  enable_image_recorder:=true \
+  image_recorder_max_bundles:=20 \
+  image_recorder_save_period_sec:=0.75
+```
 
 ## How To Command Motion
 
@@ -189,10 +227,35 @@ python3 src/qarm_nodes/Experimentals_QArm/codex-testing/pose_record.py Chess_obs
 That helper is intended to:
 
 - start `qarm_hardware`
-- start `move_qarm_server`
-- start `bridge_commander.py`
 - hold the measured startup pose instead of pushing zeros immediately
 - save the startup pose into `saved_poses.json`
+
+If the user wants to start hold-current hardware only (no move server, no
+bridge), use:
+
+```bash
+python3 src/qarm_nodes/Experimentals_QArm/codex-testing/start_qarm_hardware_hold.py
+```
+
+If the user wants that same hold-and-record flow to also update the active
+Phase 3 chess observer pose, use:
+
+```bash
+python3 src/qarm_nodes/Experimentals_QArm/codex-testing/pose_record.py \
+  Chess_observing \
+  --update-chess-observer \
+  --observer-name chess_observer_manual
+```
+
+That additionally:
+
+- updates `chess-logic/config/observer_pose.yaml`
+- writes/overwrites `observer_pose_candidates.chess_observer_manual`
+- updates the top-level active observer fields
+- makes that observer pose the active default for Phase 3
+
+Important: `pose_record.py` now only starts hold-current `qarm_hardware` for
+capture. It does not start `move_qarm_server` or `bridge_commander.py`.
 
 ## Experimental Gripper Control
 
@@ -269,6 +332,10 @@ Practical guidance:
 - Avoid targets very close to the base.
 - Small step-to-step pose changes are safer than large jumps.
 - If a target is out of bounds, the action server can reject or fail the move.
+- A hold-captured pose can still fail replay through `move_qarm_server` if IK
+  resolves to a joint solution outside library limits.
+- A common failure is elbow just above the hard limit (`+75 deg`) in
+  `0_libraries/.../hal/products/qarm.py`.
 - On the experimental bridge side, a home-like request near `[0.45, 0.0, 0.5, 0.0]`
   is normalized to a safer preset `[0.45, 0.0, 0.49, 0.0]`.
 - The experimental bridge ignores repeated identical pose/gripper payloads to

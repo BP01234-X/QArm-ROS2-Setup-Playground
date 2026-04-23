@@ -1,0 +1,366 @@
+{
+  "state": "ok",
+  "timestamp": 1776941151.739481,
+  "bridge_dir": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing",
+  "config_dir": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/chess-logic/config",
+  "output_file": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/kinematics_status.json",
+  "seed_source": "bridge",
+  "seed_pose": {
+    "xyz": [
+      0.175536,
+      -0.007141,
+      0.16609
+    ],
+    "wrist": 0.008439
+  },
+  "selected_extrinsic_name": "x-xy-yz+z",
+  "bridge_snapshot": {
+    "bridge_state": "succeeded",
+    "active_goal_id": "Chess_observing-20260423T074848Z",
+    "active_goal_pose": [
+      0.186611,
+      -0.008166,
+      0.175234,
+      0.008439
+    ],
+    "live_task_space_pose": [
+      0.175536,
+      -0.007141,
+      0.16609,
+      0.008439
+    ],
+    "target_goal_pose": [
+      0.186611,
+      -0.008166,
+      0.175234,
+      0.008439
+    ],
+    "camera_center_depth_m": 0.431,
+    "camera_rgb_shape": [
+      480,
+      640,
+      3
+    ],
+    "camera_depth_shape": [
+      480,
+      640
+    ]
+  },
+  "current_live_score": {
+    "xyz": [
+      0.175536,
+      -0.007141,
+      0.16609
+    ],
+    "wrist": 0.008439,
+    "extrinsic_name": "x-xy-yz+z",
+    "projected_center_uv": [
+      247.1284939010681,
+      181.45686394618144
+    ],
+    "board_axis_intersection_world": [
+      0.22642203484080436,
+      0.03025895355683915,
+      0.01200000000000001
+    ],
+    "visible_corner_count": 1,
+    "projected_area_px2": 1544427.0725691165,
+    "center_error_px": 98.56616372632864,
+    "axis_error_m": 0.033294881353548106,
+    "axis_depth_m": 0.19331951333040834,
+    "score": 133224.98141710815,
+    "phi_optimal": [
+      -0.04065869432588132,
+      -0.3168447131256089,
+      1.252800998993565,
+      0.008439000000000085
+    ],
+    "camera_world_xyz": [
+      0.1118688941626397,
+      0.034919102914137766,
+      0.16765440952007182
+    ]
+  },
+  "top_candidates": [
+    {
+      "xyz": [
+        0.176,
+        -0.027,
+        0.146
+      ],
+      "wrist": 0.008439,
+      "extrinsic_name": "x-xy-yz+z",
+      "projected_center_uv": [
+        321.38745670385845,
+        251.7497946162454
+      ],
+      "board_axis_intersection_world": [
+        0.19910953276267665,
+        0.009353590117300596,
+        0.01200000000000001
+      ],
+      "visible_corner_count": 0,
+      "projected_area_px2": 1590146.8700832003,
+      "center_error_px": 3.6901042920763074,
+      "axis_error_m": 0.001100353414679907,
+      "axis_depth_m": 0.1648464417551655,
+      "score": 134824.88699294996,
+      "phi_optimal": [
+        -0.1522223429387206,
+        -0.20145345661079705,
+        1.2512387782703351,
+        0.008439000000000085
+      ],
+      "camera_world_xyz": [
+        0.11800484369845216,
+        0.021795786735107767,
+        0.15497402041790134
+      ]
+    },
+    {
+      "xyz": [
+        0.156,
+        -0.007,
+        0.166
+      ],
+      "wrist": 0.008439,
+      "extrinsic_name": "x-xy-yz+z",
+      "projected_center_uv": [
+        253.88984186103576,
+        223.14709698249885
+      ],
+      "board_axis_intersection_world": [
+        0.21165157151912808,
+        0.029979931409215836,
+        0.01200000000000001
+      ],
+      "visible_corner_count": 1,
+      "projected_area_px2": 1258615.1262885004,
+      "center_error_px": 69.8032221543518,
+      "axis_error_m": 0.023129132668181198,
+      "axis_depth_m": 0.19477600828157757,
+      "score": 134629.6427971214,
+      "phi_optimal": [
+        -0.044841715078884015,
+        -0.39578865725487145,
+        1.3074922980540542,
+        0.008439000000000085
+      ],
+      "camera_world_xyz": [
+        0.09249068100294056,
+        0.035326894445198626,
+        0.16597982192412802
+      ]
+    },
+    {
+      "xyz": [
+        0.186,
+        -0.027,
+        0.136
+      ],
+      "wrist": 0.008439,
+      "extrinsic_name": "x-xy-yz+z",
+      "projected_center_uv": [
+        315.60679081097953,
+        263.3464459998391
+      ],
+      "board_axis_intersection_world": [
+        0.1960753520662074,
+        0.011388225715485145,
+        0.01200000000000001
+      ],
+      "visible_corner_count": 0,
+      "projected_area_px2": 1783590.620712008,
+      "center_error_px": 14.320055571003232,
+      "axis_error_m": 0.004162935507710495,
+      "axis_depth_m": 0.15281032130457345,
+      "score": 134323.1243894671,
+      "phi_optimal": [
+        -0.14415438711315431,
+        -0.11805269562508025,
+        1.2234269539778326,
+        0.008439000000000085
+      ],
+      "camera_world_xyz": [
+        0.12820542055055745,
+        0.021240312548402068,
+        0.14855622680165345
+      ]
+    },
+    {
+      "xyz": [
+        0.156,
+        -0.027,
+        0.156
+      ],
+      "wrist": 0.008439,
+      "extrinsic_name": "x-xy-yz+z",
+      "projected_center_uv": [
+        333.5266989224016,
+        254.88317023301985
+      ],
+      "board_axis_intersection_world": [
+        0.19717976315280236,
+        0.005896495240207786,
+        0.01200000000000001
+      ],
+      "visible_corner_count": 0,
+      "projected_area_px2": 1322068.5968101793,
+      "center_error_px": 15.92987391019008,
+      "axis_error_m": 0.004979205477576572,
+      "axis_depth_m": 0.17888467263312366,
+      "score": 134238.324906653,
+      "phi_optimal": [
+        -0.1713791263895077,
+        -0.32874423175690115,
+        1.3051667116926833,
+        0.008439000000000085
+      ],
+      "camera_world_xyz": [
+        0.09847361122453237,
+        0.02298025230471605,
+        0.16020582619834475
+      ]
+    },
+    {
+      "xyz": [
+        0.166,
+        -0.027,
+        0.156
+      ],
+      "wrist": 0.008439,
+      "extrinsic_name": "x-xy-yz+z",
+      "projected_center_uv": [
+        327.0424939074773,
+        233.29782718631924
+      ],
+      "board_axis_intersection_world": [
+        0.20518569945027104,
+        0.006582114138924705,
+        0.01200000000000001
+      ],
+      "visible_corner_count": 0,
+      "projected_area_px2": 1455592.9738269334,
+      "center_error_px": 18.132684335473805,
+      "axis_error_m": 0.006210750562361972,
+      "axis_depth_m": 0.17847121517285366,
+      "score": 134119.423862522,
+      "phi_optimal": [
+        -0.1612386289147829,
+        -0.2908419812615799,
+        1.2773362604275968,
+        0.008439000000000085
+      ],
+      "camera_world_xyz": [
+        0.10801482748469785,
+        0.02238701500079502,
+        0.16086235721454792
+      ]
+    },
+    {
+      "xyz": [
+        0.166,
+        -0.007,
+        0.166
+      ],
+      "wrist": 0.008439,
+      "extrinsic_name": "x-xy-yz+z",
+      "projected_center_uv": [
+        250.17326949957157,
+        203.52865935175564
+      ],
+      "board_axis_intersection_world": [
+        0.21880542532221875,
+        0.030245747463039957,
+        0.01200000000000001
+      ],
+      "visible_corner_count": 1,
+      "projected_area_px2": 1391753.0614201936,
+      "center_error_px": 82.340107110454,
+      "axis_error_m": 0.027632124635770146,
+      "axis_depth_m": 0.19383971739294428,
+      "score": 134015.59259968757,
+      "phi_optimal": [
+        -0.04214370659359723,
+        -0.353658770865553,
+        1.279521057169407,
+        0.008439000000000085
+      ],
+      "camera_world_xyz": [
+        0.10238297216604411,
+        0.03515512801781837,
+        0.16690495932229932
+      ]
+    },
+    {
+      "xyz": [
+        0.196,
+        -0.027,
+        0.136
+      ],
+      "wrist": 0.008439,
+      "extrinsic_name": "x-xy-yz+z",
+      "projected_center_uv": [
+        309.59493045941855,
+        229.0570133525685
+      ],
+      "board_axis_intersection_world": [
+        0.20603327033915414,
+        0.011427732937427632,
+        0.01200000000000001
+      ],
+      "visible_corner_count": 0,
+      "projected_area_px2": 2008009.5339002043,
+      "center_error_px": 22.18980339325335,
+      "axis_error_m": 0.006199900993236324,
+      "axis_depth_m": 0.15282002115054227,
+      "score": 133957.41033943894,
+      "phi_optimal": [
+        -0.1368935223782013,
+        -0.09194196096359519,
+        1.1954227606108017,
+        0.008439000000000085
+      ],
+      "camera_world_xyz": [
+        0.13783324231821714,
+        0.020822634756638318,
+        0.14843478611484312
+      ]
+    },
+    {
+      "xyz": [
+        0.156,
+        -0.017,
+        0.176
+      ],
+      "wrist": 0.008439,
+      "extrinsic_name": "x-xy-yz+z",
+      "projected_center_uv": [
+        293.55338012425034,
+        170.1443870623803
+      ],
+      "board_axis_intersection_world": [
+        0.23452962802503682,
+        0.014113194954188672,
+        0.01200000000000001
+      ],
+      "visible_corner_count": 1,
+      "projected_area_px2": 1380688.516316343,
+      "center_error_px": 83.0604357445435,
+      "axis_error_m": 0.03477374849334726,
+      "axis_depth_m": 0.2126439497289377,
+      "score": 133808.23885788457,
+      "phi_optimal": [
+        -0.10854603500718785,
+        -0.4472401591927446,
+        1.2998471840527879,
+        0.008439000000000085
+      ],
+      "camera_world_xyz": [
+        0.09542867031397106,
+        0.029271632653471456,
+        0.17212056297273076
+      ]
+    }
+  ]
+}

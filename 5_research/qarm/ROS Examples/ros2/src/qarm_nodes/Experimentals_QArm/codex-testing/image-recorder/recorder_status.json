@@ -1,0 +1,14 @@
+{
+  "state": "streaming",
+  "message": "Receiving frames. Waiting for next recorder interval.",
+  "latest_trigger": "depth",
+  "topics": {
+    "color": "qarm_camera/color",
+    "depth": "qarm_camera/depth"
+  },
+  "output_dir": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/image-recorder",
+  "frames_dir": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/image-recorder/frames",
+  "max_bundles": 30,
+  "save_period_sec": 0.5,
+  "bundle_count": 30
+}

@@ -2,15 +2,20 @@
   "poses": {
     "Chess_observing": {
       "goal_pose": [
-        0.148994,
-        -0.014563,
-        0.160484,
-        0.094363
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
       ],
-      "gripper": 0.1,
-      "recorded_at": "2026-04-22T00:00:00+00:00",
-      "source": "bridge live_task_space_pose",
-      "note": "Updated from the live held pose reported by bridge status.json."
+      "joint_positions": [
+        -0.043729,
+        -0.319913,
+        1.217511,
+        0.008439
+      ],
+      "recorded_at": "2026-04-23T07:47:58.129047+00:00",
+      "source": "pose_record startup capture",
+      "note": "Captured immediately after starting qarm_hardware in hold-startup-pose mode."
     }
   }
 }

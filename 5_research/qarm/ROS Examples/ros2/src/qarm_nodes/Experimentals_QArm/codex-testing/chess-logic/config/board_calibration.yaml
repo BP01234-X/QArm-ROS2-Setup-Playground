@@ -1,0 +1,48 @@
+board_detection_mode: manual
+board_orientation: a1_lower_left_h8_upper_right
+a1_reference: image_lower_left
+nominal_square_size_cm: 3.6
+min_square_size_cm: 3.4
+max_square_size_cm: 3.78
+board_outer_corners_image:
+  a1:
+  - 96.0
+  - 290.0
+  h1:
+  - 576.0
+  - 269.0
+  h8:
+  - 474.0
+  - 9.0
+  a8:
+  - 149.0
+  - 17.0
+board_outer_corners_world:
+  a1:
+  - 0.05
+  - 0.16
+  - 0.012
+  h1:
+  - 0.05
+  - -0.14
+  - 0.012
+  h8:
+  - 0.35
+  - -0.14
+  - 0.012
+  a8:
+  - 0.35
+  - 0.16
+  - 0.012
+min_corner_confidence: 0.35
+min_visible_board_fraction: 0.2
+min_live_fit_confidence: 0.25
+fallback_to_manual_if_live_fit_fails: true
+live_keep_last_good_confidence: 0.16
+live_stale_timeout_sec: 2.5
+live_corner_smoothing_alpha: 0.35
+observer_settle_frames: 3
+observer_settle_reset_gap_sec: 0.9
+live_corner_search_radius_px: 48
+live_corner_edge_samples: 18
+live_corner_min_gradient_m: 0.0005

@@ -67,18 +67,45 @@ class MoveExecutor:
         if yaml is None:
             raise RuntimeError("PyYAML is required to load observer_pose.yaml") from YAML_IMPORT_ERROR
         payload = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+        observer_name, observer_xyz, observer_rpy = cls._resolve_observer_pose(payload)
         config_dir = Path(path).resolve().parent
         geometry = BoardGeometry.from_yaml(config_dir / "board.yaml")
         grasp_rules = GraspRules.from_yaml(config_dir / "grasp_rules.yaml")
         return cls(
-            observer_pose_name=str(payload["observer_pose_name"]),
-            observer_world_xyz=tuple(float(v) for v in payload["observer_world_xyz"]),
-            observer_rpy=tuple(float(v) for v in payload["observer_rpy"]),
+            observer_pose_name=observer_name,
+            observer_world_xyz=observer_xyz,
+            observer_rpy=observer_rpy,
             mock_mode=mock_mode,
             action_duration_s=action_duration_s,
             bridge_client=None if mock_mode else QArmBridgeClient(bridge_dir=bridge_dir),
             geometry=geometry,
             grasp_rules=grasp_rules,
+        )
+
+    @staticmethod
+    def _resolve_observer_pose(payload: dict) -> tuple[str, tuple[float, float, float], tuple[float, float, float]]:
+        """Resolve the active observer pose from either legacy or candidate config."""
+
+        if "observer_pose_candidates" in payload:
+            selected_name = str(payload.get("default_observer_pose") or payload["observer_pose_name"])
+            candidates = payload["observer_pose_candidates"]
+            if selected_name not in candidates:
+                available = ", ".join(sorted(candidates))
+                raise KeyError(
+                    f"Observer pose {selected_name!r} not found in observer_pose_candidates. "
+                    f"Available: {available}"
+                )
+            selected = candidates[selected_name]
+            return (
+                selected_name,
+                tuple(float(v) for v in selected["observer_world_xyz"]),
+                tuple(float(v) for v in selected["observer_rpy"]),
+            )
+
+        return (
+            str(payload["observer_pose_name"]),
+            tuple(float(v) for v in payload["observer_world_xyz"]),
+            tuple(float(v) for v in payload["observer_rpy"]),
         )
 
     def move_to_observer_pose(self) -> None:

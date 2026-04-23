@@ -1,9 +1,179 @@
-observer_pose_name: chess_observer
-observer_world_xyz:
-  - 0.149
-  - -0.015
-  - 0.190
-observer_rpy:
-  - 0.0
-  - 0.0
-  - 0.094
+default_observer_pose: chess_observer_manual
+observer_pose_name: chess_observer_manual
+observer_world_xyz: &id001
+- 0.186611
+- -0.008166
+- 0.175234
+observer_rpy: &id002
+- 0.0
+- 0.0
+- 0.008439
+observer_pose_candidates:
+  chess_observer_current:
+    observer_world_xyz:
+    - 0.149
+    - -0.015
+    - 0.19
+    observer_rpy:
+    - 0.0
+    - 0.0
+    - 0.094
+    note: 'Current baseline. Lower and further from board center, so the board appears
+      more diagonal and the near edge dominates the frame.
+
+      '
+    evaluation_focus: 'Use only as the comparison baseline when checking whether the
+      newer poses improve centering, top-down view, and arm occlusion.
+
+      '
+  chess_observer_centered_mid:
+    observer_world_xyz:
+    - 0.175
+    - -0.002
+    - 0.22
+    observer_rpy:
+    - 0.0
+    - 0.0
+    - 0.094
+    note: 'Moderate shift toward the board center with a 30 mm height increase over
+      the old baseline. This should reduce diagonal perspective without making the
+      pieces too small.
+
+      '
+    evaluation_focus: 'Check whether the whole board fits with better centering while
+      preserving good piece size and keeping the arm out of the middle of the frame.
+
+      '
+  chess_observer_topdown_recommended:
+    observer_world_xyz:
+    - 0.188
+    - 0.004
+    - 0.24
+    observer_rpy:
+    - 0.0
+    - 0.0
+    - 0.094
+    note: 'Recommended default. It moves much closer to the board center and adds
+      a 50 mm height increase over the old baseline, which should produce a more top-down
+      and more symmetric board view.
+
+      '
+    evaluation_focus: 'Expect the best tradeoff between full-board visibility, square
+      geometry fitting, and avoiding heavy gripper/arm dominance in the image.
+
+      '
+  chess_observer_fullboard_margin:
+    observer_world_xyz:
+    - 0.195
+    - 0.008
+    - 0.26
+    observer_rpy:
+    - 0.0
+    - 0.0
+    - 0.094
+    note: 'Highest and most centered option. This should maximize board margin and
+      minimize diagonal distortion, but pieces will appear a bit smaller.
+
+      '
+    evaluation_focus: 'Use this if the lower candidates still clip edges or if square
+      fitting needs more outer-board margin than the recommended pose provides.
+
+      '
+  chess_observer_iter07_best:
+    observer_world_xyz:
+    - 0.21
+    - 0.016
+    - 0.205
+    observer_rpy:
+    - 0.0
+    - 0.0
+    - 0.094
+    note: 'Best pose found from live recorder-guided iteration. It gives the strongest
+      full-board framing seen so far while keeping the board large enough for future
+      square and piece analysis.
+
+      '
+    evaluation_focus: 'Use this as the current working default. Remaining limitation
+      is small foreground occlusion near the near edge, but it performed better than
+      the higher and more centered candidates in live camera review.
+
+      '
+  chess_observer_frame_sweep_01:
+    observer_world_xyz:
+    - 0.188
+    - 0.002
+    - 0.198
+    observer_rpy:
+    - 0.0
+    - 0.0
+    - 0.094
+    note: 'First frame-driven refinement from the live best pose. It moves the arm
+      slightly rearward and slightly left while staying near the current height, aiming
+      to reduce near-edge dominance without shrinking the board too much.
+
+      '
+    evaluation_focus: 'Check whether the full board border is easier to see and whether
+      the board moves upward toward the image center with less foreground intrusion.
+
+      '
+  chess_observer_frame_sweep_02:
+    observer_world_xyz:
+    - 0.188
+    - 0.002
+    - 0.212
+    observer_rpy:
+    - 0.0
+    - 0.0
+    - 0.094
+    note: 'Same rearward XY bias as frame_sweep_01, but 14 mm higher for extra board
+      margin if the first sweep still clips edges or feels too close.
+
+      '
+    evaluation_focus: 'Use this if frame_sweep_01 keeps the board large but still
+      misses borders.
+
+      '
+  chess_observer_frame_sweep_03:
+    observer_world_xyz:
+    - 0.196
+    - 0.006
+    - 0.214
+    observer_rpy:
+    - 0.0
+    - 0.0
+    - 0.094
+    note: 'A compromise between the current live best and the rearward sweep poses.
+      It keeps more of the current centering while adding a bit more height and slightly
+      backing off the board.
+
+      '
+    evaluation_focus: 'Use this if the rearward sweeps over-correct and make the board
+      too small or off-center.
+
+      '
+  chess_observer_lateral_best_round1:
+    observer_world_xyz:
+    - 0.2
+    - 0.025
+    - 0.214
+    observer_rpy:
+    - 0.0
+    - 0.0
+    - 0.094
+    note: 'Best pose from the current frame-driven sweep after the recorder fix. It
+      keeps the full board visible and shifts the near-edge arm intrusion slightly
+      farther away from the useful board area than the earlier poses.
+
+      '
+    evaluation_focus: 'Use this as the current best observer pose candidate before
+      geometry fitting. Remaining limitation is bottom-edge arm/gripper intrusion,
+      but it is the least disruptive variant found in this sweep.
+
+      '
+  chess_observer_manual:
+    observer_world_xyz: *id001
+    observer_rpy: *id002
+    note: Captured from pose_record hold-startup flow using saved pose 'Chess_observing'
+      on 2026-04-23T07:47:58.132352+00:00.
+    evaluation_focus: Manual recorder-tuned chess observer pose captured from the
+      live bridge hold workflow.

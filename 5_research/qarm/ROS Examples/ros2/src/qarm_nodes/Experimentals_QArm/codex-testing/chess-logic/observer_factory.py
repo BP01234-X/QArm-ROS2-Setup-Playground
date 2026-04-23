@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from board_geometry import BoardGeometry
+from board_geometry import BoardCalibration, BoardGeometry
 from board_observer import BoardObserver, ConfiguredBoardFrameEstimator
 from phase2_frame_source import Phase2FrameConfig, Phase2FrameSource
 from phase2_piece_detector import Phase2PieceDetector
@@ -25,11 +25,13 @@ def build_camera_observer(
     camera_to_world_matrix: Matrix4 | None = None,
     allow_mock_fallback: bool = True,
     mock_observations: dict[str, str | None] | None = None,
+    calibration: BoardCalibration | None = None,
 ) -> BoardObserver:
     """Build a camera-mode `BoardObserver` with Phase 2 adapters."""
 
     base_dir = Path(config_dir or Path(__file__).resolve().parent / "config")
     board_geometry = geometry or BoardGeometry.from_yaml(base_dir / "board.yaml")
+    board_calibration = calibration or BoardCalibration.from_yaml(base_dir / "board_calibration.yaml")
     frame_config = Phase2FrameConfig()
     frame_source = Phase2FrameSource(
         rgb_provider=rgb_provider,
@@ -51,9 +53,10 @@ def build_camera_observer(
         mode="camera",
         frame_source=frame_source,
         transform_provider=transform_provider,
-        board_frame_estimator=ConfiguredBoardFrameEstimator(),
+        board_frame_estimator=ConfiguredBoardFrameEstimator(calibration=board_calibration),
         piece_detector=Phase2PieceDetector(),
         allow_mock_fallback=allow_mock_fallback,
+        calibration=board_calibration,
     )
 
 
@@ -61,9 +64,16 @@ def build_mock_observer(
     *,
     config_dir: str | Path | None = None,
     mock_observations: dict[str, str | None] | None = None,
+    calibration: BoardCalibration | None = None,
 ) -> BoardObserver:
     """Build a plain mock-mode observer for tests and fallback."""
 
     base_dir = Path(config_dir or Path(__file__).resolve().parent / "config")
     geometry = BoardGeometry.from_yaml(base_dir / "board.yaml")
-    return BoardObserver(geometry, mock_observations=mock_observations, mode="mock")
+    board_calibration = calibration or BoardCalibration.from_yaml(base_dir / "board_calibration.yaml")
+    return BoardObserver(
+        geometry,
+        mock_observations=mock_observations,
+        mode="mock",
+        calibration=board_calibration,
+    )

@@ -17,3 +17,25 @@ cd "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qar
   source /opt/ros/kilted/setup.bash
   colcon build --symlink-install
   source install/local_setup.bash
+
+
+ros2 launch qarm_nodes gui_qarm.py include_gripper:=false use_camera:=true use_depth_point_cloud:=true
+
+
+
+#Save chess-observer pose, TODO: TURN OFF THE ARM AND PUT IN A GOOD POSE YOU CAN USE 
+# gui_qarm FOR GUIDING IN CAMERA FOV.
+
+python3 src/qarm_nodes/Experimentals_QArm/codex-testing/pose_record.py \
+    Chess_observing \
+    --update-chess-observer \
+    --observer-name chess_observer_manual
+
+ros2 launch qarm_nodes move_qarm.py enable_camera_observer:=true enable_gripper_cycle:=true hold_startup_pose:=true
+
+ros2 launch qarm_nodes gui_qarm.py enable_chess_debug_markers:=true
+
+#chessboard_corner_recorders
+python3 src/qarm_nodes/Experimentals_QArm/codex-testing/chess-logic/interactive_board_corner_picker.py
+
+
