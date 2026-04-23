@@ -6,3 +6,9 @@ preferred_vertical_grasp: true
 avoid_tilt_band_deg:
   - 35
   - 55
+tcp_offset_xyz_m:
+  - 0.0
+  - 0.0
+  - 0.0
+marker_center_mode: false
+marker_center_clearance_m: 0.0

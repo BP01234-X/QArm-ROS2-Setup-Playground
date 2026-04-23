@@ -20,18 +20,18 @@ board_outer_corners_image:
 board_outer_corners_world:
   a1:
   - 0.05
-  - 0.16
+  - -0.14
   - 0.012
   h1:
-  - 0.05
+  - 0.35
   - -0.14
   - 0.012
   h8:
   - 0.35
-  - -0.14
+  - 0.16
   - 0.012
   a8:
-  - 0.35
+  - 0.05
   - 0.16
   - 0.012
 min_corner_confidence: 0.35

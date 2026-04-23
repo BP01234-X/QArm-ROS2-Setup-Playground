@@ -59,6 +59,10 @@ def main() -> None:
             mock_mode=False,
             bridge_dir=args.bridge_dir,
         )
+        orchestrator.move_executor.set_board_square_centers(
+            square_centers_world=orchestrator.manipulation_square_centers_world,
+            board_source=orchestrator.manipulation_board_source,
+        )
 
     display = AsciiDisplay()
     print("WARNING: real executor mode will send commands through codex-testing/target_pose.json")
@@ -71,7 +75,20 @@ def main() -> None:
 
     print("=== MOVE REQUEST ===")
     print(display.show_last_move(move_text))
-    result = orchestrator.execute_one_move(move_text, verification_board=verification_board)
+    try:
+        result = orchestrator.execute_one_move(move_text, verification_board=verification_board)
+    except Exception as exc:
+        print(f"ERROR: move execution failed: {exc}")
+        print("Attempting safety recovery to chess_observer pose...")
+        try:
+            orchestrator.move_executor.set_gripper(0.7)
+            orchestrator.move_executor.wait_until_done()
+            orchestrator.move_executor.move_to_observer_pose()
+            orchestrator.move_executor.wait_until_done()
+            print("Safety recovery finished.")
+        except Exception as recover_exc:
+            print(f"Safety recovery also failed: {recover_exc}")
+        raise SystemExit(1) from exc
 
     print("=== FINAL SNAPSHOT ===")
     print(orchestrator.debug_snapshot())

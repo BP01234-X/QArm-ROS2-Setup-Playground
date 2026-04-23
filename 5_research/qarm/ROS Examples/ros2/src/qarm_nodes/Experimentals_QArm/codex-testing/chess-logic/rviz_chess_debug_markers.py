@@ -74,6 +74,38 @@ class ChessDebugMarkerBuilder:
 
         return marker_array
 
+    def build_fixed_manual(
+        self,
+        *,
+        board_outer_corners_world: dict[str, XYZ],
+        square_centers_world: dict[str, XYZ],
+        source: str,
+        stamp,
+    ) -> MarkerArray:
+        """Build a persistent manual-calibration marker layer."""
+
+        observed_board = ObservedBoard(
+            by_square={square: None for square in square_centers_world},
+            observations={},
+            timestamp=0.0,
+        )
+        board_frame = BoardFrameEstimate(
+            frame_name=self.frame_id,
+            origin_world_xyz=board_outer_corners_world["a1"],
+            x_axis_world=_unit_axis(board_outer_corners_world["a1"], board_outer_corners_world["h1"]),
+            y_axis_world=_unit_axis(board_outer_corners_world["a1"], board_outer_corners_world["a8"]),
+            z_axis_world=(0.0, 0.0, 1.0),
+            square_centers_world=dict(square_centers_world),
+            square_regions={},
+            source=f"fixed_manual:{source}",
+            board_detection_mode="manual",
+            board_outer_corners_world=dict(board_outer_corners_world),
+            fit_state="manual_fixed",
+            used_live_fit=False,
+            used_manual_fallback=False,
+        )
+        return self.build(board_frame, observed_board, stamp=stamp)
+
     def _board_border_marker(self, board_frame: BoardFrameEstimate, stamp, marker_id: int) -> Marker:
         marker = self._new_marker("board_border", marker_id, Marker.LINE_STRIP, stamp)
         marker.scale.x = 0.004
@@ -267,3 +299,13 @@ def _square_sort_key(square: str) -> tuple[int, int]:
     file_idx = "abcdefgh".index(square[0])
     rank_idx = "12345678".index(square[1])
     return (rank_idx, file_idx)
+
+
+def _unit_axis(a: XYZ, b: XYZ) -> XYZ:
+    dx = float(b[0] - a[0])
+    dy = float(b[1] - a[1])
+    dz = float(b[2] - a[2])
+    norm = (dx * dx + dy * dy + dz * dz) ** 0.5
+    if norm <= 1e-9:
+        return (0.0, 0.0, 0.0)
+    return (dx / norm, dy / norm, dz / norm)

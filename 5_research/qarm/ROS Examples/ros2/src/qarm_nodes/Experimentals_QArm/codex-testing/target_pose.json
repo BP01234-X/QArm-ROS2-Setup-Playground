@@ -1,11 +1,11 @@
 {
-  "goal_id": "Chess_observing-20260423T074848Z",
+  "goal_id": "phase3-move-20260423T124823.562277Z-76d9acd3",
   "goal_pose": [
-    0.186611,
-    -0.008166,
-    0.175234,
+    0.21875,
+    -0.008750000000000015,
+    0.122,
     0.008439
   ],
   "enabled": true,
-  "note": "Move to saved pose 'Chess_observing'."
+  "note": "Phase 3 upward retreat after placement."
 }

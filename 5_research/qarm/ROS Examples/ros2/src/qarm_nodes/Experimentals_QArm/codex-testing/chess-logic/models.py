@@ -57,7 +57,14 @@ class GraspPlan:
     target_square: str
     source_world_xyz: XYZ
     target_world_xyz: XYZ
+    source_approach_world_xyz: XYZ
+    source_pick_world_xyz: XYZ
+    source_lift_world_xyz: XYZ
+    target_approach_world_xyz: XYZ
+    target_place_world_xyz: XYZ
+    target_retreat_world_xyz: XYZ
     approach_height_m: float
+    lift_height_m: float
     pick_height_m: float
     place_height_m: float
     gripper_vertical: bool

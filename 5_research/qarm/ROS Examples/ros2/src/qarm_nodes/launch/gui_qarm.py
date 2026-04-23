@@ -62,30 +62,51 @@ def _launch_setup(context, plain_urdf_path: Path):
     color_topic_value = LaunchConfiguration('chess_debug_color_topic').perform(context).strip()
     depth_topic_value = LaunchConfiguration('chess_debug_depth_topic').perform(context).strip()
     observer_only_value = LaunchConfiguration('chess_debug_observer_only').perform(context).strip()
+    fixed_manual_topic_value = LaunchConfiguration(
+        'chess_debug_fixed_manual_marker_topic'
+    ).perform(context).strip()
+    command_marker_topic_value = LaunchConfiguration(
+        'chess_debug_command_marker_topic'
+    ).perform(context).strip()
+    command_trace_file_value = LaunchConfiguration(
+        'chess_debug_command_trace_file'
+    ).perform(context).strip()
+    status_file_value = LaunchConfiguration(
+        'chess_debug_status_file'
+    ).perform(context).strip()
     device_id_value = LaunchConfiguration('device_id').perform(context).strip()
     robot_description = {
         'robot_description': plain_urdf_path.read_text(encoding='utf-8')
     }
     rviz_config = LaunchConfiguration('rviz_config').perform(context).strip()
     rviz_arguments = ['-d', rviz_config] if rviz_config else []
+    chess_debug_cmd = [
+        'python3',
+        str(chess_debug_script),
+        '--ros-args',
+        '-r',
+        '__node:=chess_rviz_debug',
+        '-p',
+        f'marker_topic:={marker_topic_value}',
+        '-p',
+        f'fixed_frame:={fixed_frame_value}',
+        '-p',
+        f'color_topic:={color_topic_value}',
+        '-p',
+        f'depth_topic:={depth_topic_value}',
+        '-p',
+        f'observer_only:={observer_only_value}',
+        '-p',
+        f'fixed_manual_marker_topic:={fixed_manual_topic_value}',
+        '-p',
+        f'command_marker_topic:={command_marker_topic_value}',
+    ]
+    if command_trace_file_value:
+        chess_debug_cmd.extend(['-p', f'command_trace_file:={command_trace_file_value}'])
+    if status_file_value:
+        chess_debug_cmd.extend(['-p', f'status_file:={status_file_value}'])
     chess_debug_process = ExecuteProcess(
-        cmd=[
-            'python3',
-            str(chess_debug_script),
-            '--ros-args',
-            '-r',
-            '__node:=chess_rviz_debug',
-            '-p',
-            f'marker_topic:={marker_topic_value}',
-            '-p',
-            f'fixed_frame:={fixed_frame_value}',
-            '-p',
-            f'color_topic:={color_topic_value}',
-            '-p',
-            f'depth_topic:={depth_topic_value}',
-            '-p',
-            f'observer_only:={observer_only_value}',
-        ],
+        cmd=chess_debug_cmd,
         output='screen',
         condition=IfCondition(LaunchConfiguration('enable_chess_debug_markers')),
     )
@@ -203,6 +224,21 @@ def generate_launch_description():
         default_value='false',
         description='If true, refresh markers only when status_file reports observer pose; otherwise update continuously.',
     )
+    chess_debug_fixed_manual_marker_topic = DeclareLaunchArgument(
+        'chess_debug_fixed_manual_marker_topic',
+        default_value='/chess/debug/fixed_manual_markers',
+        description='Persistent manual-calibration MarkerArray topic for fixed board geometry debug.',
+    )
+    chess_debug_command_marker_topic = DeclareLaunchArgument(
+        'chess_debug_command_marker_topic',
+        default_value='/chess/debug/command_markers',
+        description='MarkerArray topic for planner/tcp/bridge command trace markers.',
+    )
+    chess_debug_command_trace_file = DeclareLaunchArgument(
+        'chess_debug_command_trace_file',
+        default_value='',
+        description='Optional path to command_trace.json; empty uses chess-logic default.',
+    )
     chess_debug_status_file = DeclareLaunchArgument(
         'chess_debug_status_file',
         default_value='',
@@ -228,6 +264,9 @@ def generate_launch_description():
         chess_debug_color_topic,
         chess_debug_depth_topic,
         chess_debug_observer_only,
+        chess_debug_fixed_manual_marker_topic,
+        chess_debug_command_marker_topic,
+        chess_debug_command_trace_file,
         chess_debug_status_file,
         rviz_config,
         OpaqueFunction(

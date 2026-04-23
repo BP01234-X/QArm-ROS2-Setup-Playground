@@ -18,6 +18,7 @@ from sensor_msgs.msg import Image
 from std_msgs.msg import ColorRGBA
 from visualization_msgs.msg import Marker, MarkerArray
 
+from calibrated_board_model import load_fixed_calibrated_board_model
 from board_observer import DetectedPieceCandidate
 from observer_factory import build_camera_observer
 from rviz_chess_debug_markers import ChessDebugMarkerBuilder
@@ -45,6 +46,13 @@ class ChessRvizDebugNode(Node):
         self.declare_parameter("allow_mock_fallback", True)
         self.declare_parameter("camera_overlay_topic", "/chess/debug/camera_markers")
         self.declare_parameter("publish_camera_overlay", True)
+        self.declare_parameter("fixed_manual_marker_topic", "/chess/debug/fixed_manual_markers")
+        self.declare_parameter("command_marker_topic", "/chess/debug/command_markers")
+        self.declare_parameter("command_trace_file", str(Path(__file__).resolve().parent.parent / "command_trace.json"))
+        self.declare_parameter(
+            "board_frame_export_file",
+            str(Path(__file__).resolve().parent.parent / "board_frame_world.json"),
+        )
 
         self.marker_topic = str(self.get_parameter("marker_topic").value)
         self.camera_overlay_topic = str(self.get_parameter("camera_overlay_topic").value)
@@ -59,6 +67,20 @@ class ChessRvizDebugNode(Node):
         self.candidate_file = str(self.get_parameter("candidate_file").value).strip()
         self.allow_mock_fallback = bool(self.get_parameter("allow_mock_fallback").value)
         self.publish_camera_overlay = bool(self.get_parameter("publish_camera_overlay").value)
+        self.fixed_manual_marker_topic = str(self.get_parameter("fixed_manual_marker_topic").value)
+        self.command_marker_topic = str(self.get_parameter("command_marker_topic").value)
+        command_trace_param = str(self.get_parameter("command_trace_file").value).strip()
+        self.command_trace_file = (
+            Path(command_trace_param)
+            if command_trace_param
+            else (Path(__file__).resolve().parent.parent / "command_trace.json")
+        )
+        board_export_param = str(self.get_parameter("board_frame_export_file").value).strip()
+        self.board_frame_export_file = (
+            Path(board_export_param)
+            if board_export_param
+            else (Path(__file__).resolve().parent.parent / "board_frame_world.json")
+        )
 
         self._latest_color: Image | None = None
         self._latest_depth: Image | None = None
@@ -71,6 +93,16 @@ class ChessRvizDebugNode(Node):
         self.create_subscription(Image, self.depth_topic, self._depth_cb, 10)
         self.marker_pub = self.create_publisher(MarkerArray, self.marker_topic, 10)
         self.camera_marker_pub = self.create_publisher(MarkerArray, self.camera_overlay_topic, 10)
+        self.fixed_manual_marker_pub = self.create_publisher(
+            MarkerArray,
+            self.fixed_manual_marker_topic,
+            10,
+        )
+        self.command_marker_pub = self.create_publisher(
+            MarkerArray,
+            self.command_marker_topic,
+            10,
+        )
 
         self.observer = build_camera_observer(
             config_dir=self.config_dir,
@@ -80,6 +112,14 @@ class ChessRvizDebugNode(Node):
             allow_mock_fallback=self.allow_mock_fallback,
         )
         self.marker_builder = ChessDebugMarkerBuilder(frame_id=self.fixed_frame)
+        self.fixed_manual_board_model = load_fixed_calibrated_board_model(config_dir=self.config_dir)
+        self._fixed_manual_markers = self.marker_builder.build_fixed_manual(
+            board_outer_corners_world=self.fixed_manual_board_model.board_outer_corners_world,
+            square_centers_world=self.fixed_manual_board_model.square_centers_world,
+            source=self.fixed_manual_board_model.source,
+            stamp=self.get_clock().now().to_msg(),
+        )
+        self._last_command_markers: MarkerArray | None = None
 
         period = 1.0 / max(self.update_hz, 0.1)
         self.create_timer(period, self._tick)
@@ -117,6 +157,7 @@ class ChessRvizDebugNode(Node):
                         board_frame=board_frame,
                         candidates=candidates,
                     )
+                self._export_board_frame(board_frame)
                 self._last_refresh_reason = "observer_snapshot_refresh"
             except RuntimeError as exc:
                 self._last_refresh_reason = f"refresh_failed:{exc}"
@@ -131,12 +172,20 @@ class ChessRvizDebugNode(Node):
                 f"(refresh_allowed={refresh_allowed}, reason={self._last_refresh_reason})",
                 level="info",
             )
-            return
-        self._retimestamp(self._last_markers)
-        self.marker_pub.publish(self._last_markers)
-        if self.publish_camera_overlay and self._last_camera_markers is not None:
-            self._retimestamp(self._last_camera_markers)
-            self.camera_marker_pub.publish(self._last_camera_markers)
+        else:
+            self._retimestamp(self._last_markers)
+            self.marker_pub.publish(self._last_markers)
+            if self.publish_camera_overlay and self._last_camera_markers is not None:
+                self._retimestamp(self._last_camera_markers)
+                self.camera_marker_pub.publish(self._last_camera_markers)
+        self._retimestamp(self._fixed_manual_markers)
+        self.fixed_manual_marker_pub.publish(self._fixed_manual_markers)
+        command_markers = self._load_command_markers()
+        if command_markers is not None:
+            self._last_command_markers = command_markers
+        if self._last_command_markers is not None:
+            self._retimestamp(self._last_command_markers)
+            self.command_marker_pub.publish(self._last_command_markers)
 
     def _should_refresh_snapshot(self) -> bool:
         if not self.observer_only:
@@ -161,6 +210,34 @@ class ChessRvizDebugNode(Node):
             return json.loads(self.status_file.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             return None
+
+    def _export_board_frame(self, board_frame) -> None:
+        """Export latest world board frame for manipulation consumers."""
+
+        corners_world = _coerce_corner_xyz_map(board_frame.board_outer_corners_world)
+        if len(corners_world) != 4:
+            return
+        square_centers_world = {
+            square: [float(xyz[0]), float(xyz[1]), float(xyz[2])]
+            for square, xyz in board_frame.square_centers_world.items()
+        }
+        payload = {
+            "frame_name": self.fixed_frame,
+            "source": str(board_frame.source),
+            "fit_state": str(board_frame.fit_state),
+            "used_live_fit": bool(board_frame.used_live_fit),
+            "used_manual_fallback": bool(board_frame.used_manual_fallback),
+            "board_outer_corners_world": {
+                key: [float(corners_world[key][0]), float(corners_world[key][1]), float(corners_world[key][2])]
+                for key in ("a1", "h1", "h8", "a8")
+            },
+            "square_centers_world": square_centers_world,
+            "updated_at_sec": float(time.time()),
+        }
+        self.board_frame_export_file.parent.mkdir(parents=True, exist_ok=True)
+        tmp_path = self.board_frame_export_file.with_suffix(self.board_frame_export_file.suffix + ".tmp")
+        tmp_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        tmp_path.replace(self.board_frame_export_file)
 
     def _rgb_provider(self):
         if self._latest_color is None:
@@ -191,6 +268,133 @@ class ChessRvizDebugNode(Node):
         if isinstance(payload, dict):
             return payload
         return {}
+
+    def _load_command_markers(self) -> MarkerArray | None:
+        """Load planner->bridge command trace and convert it to world markers."""
+
+        try:
+            payload = json.loads(self.command_trace_file.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return None
+        if not isinstance(payload, dict):
+            return None
+        commands = payload.get("commands")
+        if not isinstance(commands, list):
+            return None
+        return self._build_command_markers(commands)
+
+    def _build_command_markers(self, commands: list[Any]) -> MarkerArray:
+        markers = MarkerArray()
+        stamp = self.get_clock().now().to_msg()
+
+        delete_all = Marker()
+        delete_all.header.frame_id = self.fixed_frame
+        delete_all.header.stamp = stamp
+        delete_all.action = Marker.DELETEALL
+        markers.markers.append(delete_all)
+
+        recent = [item for item in commands if isinstance(item, dict)][-40:]
+        planner_points: list[Point] = []
+        tcp_points: list[Point] = []
+        bridge_points: list[Point] = []
+        line_points: list[Point] = []
+
+        text_id = 2000
+        for item in recent:
+            planner = _coerce_pose4(item.get("planner_pose"))
+            tcp_corrected = _coerce_pose4(item.get("tcp_corrected_pose"))
+            bridge = _coerce_pose4(item.get("bridge_goal_pose"))
+            stage = str(item.get("stage", "unknown"))
+
+            if planner is not None:
+                planner_points.append(_point((planner[0], planner[1], planner[2])))
+            if tcp_corrected is not None:
+                tcp_points.append(_point((tcp_corrected[0], tcp_corrected[1], tcp_corrected[2])))
+            if bridge is not None:
+                bridge_points.append(_point((bridge[0], bridge[1], bridge[2])))
+
+            if planner is not None and tcp_corrected is not None:
+                line_points.append(_point((planner[0], planner[1], planner[2])))
+                line_points.append(_point((tcp_corrected[0], tcp_corrected[1], tcp_corrected[2])))
+            if tcp_corrected is not None and bridge is not None:
+                line_points.append(_point((tcp_corrected[0], tcp_corrected[1], tcp_corrected[2])))
+                line_points.append(_point((bridge[0], bridge[1], bridge[2])))
+
+            label_pose = bridge or tcp_corrected or planner
+            if label_pose is not None:
+                label = Marker()
+                label.header.frame_id = self.fixed_frame
+                label.header.stamp = stamp
+                label.ns = "command_stage_labels"
+                label.id = text_id
+                text_id += 1
+                label.type = Marker.TEXT_VIEW_FACING
+                label.action = Marker.ADD
+                label.scale.z = 0.016
+                label.color = _rgba(0.95, 0.95, 0.95, 0.95)
+                label.pose.orientation.w = 1.0
+                label.pose.position = _point((label_pose[0], label_pose[1], label_pose[2] + 0.02))
+                label.text = stage
+                markers.markers.append(label)
+
+        planner_marker = Marker()
+        planner_marker.header.frame_id = self.fixed_frame
+        planner_marker.header.stamp = stamp
+        planner_marker.ns = "planner_pose_targets"
+        planner_marker.id = 1001
+        planner_marker.type = Marker.SPHERE_LIST
+        planner_marker.action = Marker.ADD
+        planner_marker.scale.x = 0.009
+        planner_marker.scale.y = 0.009
+        planner_marker.scale.z = 0.009
+        planner_marker.color = _rgba(0.2, 0.7, 1.0, 0.9)
+        planner_marker.pose.orientation.w = 1.0
+        planner_marker.points = planner_points
+        markers.markers.append(planner_marker)
+
+        tcp_marker = Marker()
+        tcp_marker.header.frame_id = self.fixed_frame
+        tcp_marker.header.stamp = stamp
+        tcp_marker.ns = "tcp_corrected_targets"
+        tcp_marker.id = 1002
+        tcp_marker.type = Marker.SPHERE_LIST
+        tcp_marker.action = Marker.ADD
+        tcp_marker.scale.x = 0.008
+        tcp_marker.scale.y = 0.008
+        tcp_marker.scale.z = 0.008
+        tcp_marker.color = _rgba(1.0, 0.85, 0.2, 0.95)
+        tcp_marker.pose.orientation.w = 1.0
+        tcp_marker.points = tcp_points
+        markers.markers.append(tcp_marker)
+
+        bridge_marker = Marker()
+        bridge_marker.header.frame_id = self.fixed_frame
+        bridge_marker.header.stamp = stamp
+        bridge_marker.ns = "bridge_goal_targets"
+        bridge_marker.id = 1003
+        bridge_marker.type = Marker.SPHERE_LIST
+        bridge_marker.action = Marker.ADD
+        bridge_marker.scale.x = 0.007
+        bridge_marker.scale.y = 0.007
+        bridge_marker.scale.z = 0.007
+        bridge_marker.color = _rgba(1.0, 0.25, 0.7, 0.95)
+        bridge_marker.pose.orientation.w = 1.0
+        bridge_marker.points = bridge_points
+        markers.markers.append(bridge_marker)
+
+        line_marker = Marker()
+        line_marker.header.frame_id = self.fixed_frame
+        line_marker.header.stamp = stamp
+        line_marker.ns = "planner_to_bridge_lines"
+        line_marker.id = 1004
+        line_marker.type = Marker.LINE_LIST
+        line_marker.action = Marker.ADD
+        line_marker.scale.x = 0.0015
+        line_marker.color = _rgba(0.95, 0.6, 0.2, 0.85)
+        line_marker.pose.orientation.w = 1.0
+        line_marker.points = line_points
+        markers.markers.append(line_marker)
+        return markers
 
     def _retimestamp(self, marker_array: MarkerArray) -> None:
         stamp = self.get_clock().now().to_msg()
@@ -483,6 +687,15 @@ def _coerce_corner_xyz_map(value: Any) -> dict[str, tuple[float, float, float]]:
         except (TypeError, ValueError):
             continue
     return parsed
+
+
+def _coerce_pose4(value: Any) -> tuple[float, float, float, float] | None:
+    if not isinstance(value, (list, tuple)) or len(value) < 4:
+        return None
+    try:
+        return (float(value[0]), float(value[1]), float(value[2]), float(value[3]))
+    except (TypeError, ValueError):
+        return None
 
 
 def _square_centers_from_camera_corners(

@@ -12,11 +12,11 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from typing import Any, Protocol, runtime_checkable
 
+from calibrated_board_model import load_fixed_calibrated_board_model
 from board_geometry import (
     BoardCalibration,
     BoardGeometry,
     canonicalize_image_corners,
-    remap_world_corners_by_image_permutation,
 )
 from models import ObservedBoard, PieceObservation, XYZ
 
@@ -816,6 +816,10 @@ class BoardObserver:
         self.mode = mode
         self.frame_source = frame_source
         self.transform_provider = transform_provider
+        self._fixed_board_model = load_fixed_calibrated_board_model(
+            geometry=self.geometry,
+            calibration=self.calibration,
+        )
         self.board_frame_estimator = board_frame_estimator or ConfiguredBoardFrameEstimator(
             calibration=self.calibration
         )
@@ -823,6 +827,7 @@ class BoardObserver:
         self.allow_mock_fallback = allow_mock_fallback
         self._mock_observations = self._normalize_square_map(mock_observations or {})
         self._frozen = False
+        self._last_board_frame: BoardFrameEstimate | None = None
         self._validate_mode()
 
     def set_mode(self, mode: str) -> None:
@@ -849,6 +854,10 @@ class BoardObserver:
             self.transform_provider = transform_provider
         if calibration is not None:
             self.calibration = calibration
+            self._fixed_board_model = load_fixed_calibrated_board_model(
+                geometry=self.geometry,
+                calibration=self.calibration,
+            )
             if board_frame_estimator is None:
                 board_frame_estimator = ConfiguredBoardFrameEstimator(calibration=calibration)
         if board_frame_estimator is not None:
@@ -918,6 +927,11 @@ class BoardObserver:
         """Return all square regions for the current frame."""
 
         return dict(board_frame.square_regions)
+
+    def latest_board_frame(self) -> BoardFrameEstimate | None:
+        """Return the most recent estimated board frame snapshot."""
+
+        return self._last_board_frame
 
     def detect_piece_candidates(
         self,
@@ -1047,6 +1061,7 @@ class BoardObserver:
 
         frame_bundle = self.frame_source.get_observer_frame()
         board_frame = self.estimate_board_frame(frame_bundle)
+        self._last_board_frame = board_frame
         candidates = self.detect_piece_candidates(frame_bundle, board_frame)
         return self.build_observed_board_from_candidates(candidates, board_frame, frame_bundle)
 
@@ -1067,7 +1082,10 @@ class BoardObserver:
             observations[square] = PieceObservation(
                 piece_name=piece_name,
                 square=square,
-                world_xyz=self.geometry.square_center_world(square),
+                world_xyz=self._fixed_board_model.square_centers_world.get(
+                    square,
+                    self.geometry.square_center_world(square),
+                ),
                 yaw_rad=0.0,
                 confidence=0.99,
             )
@@ -1133,14 +1151,9 @@ def _manual_world_corners(
     geometry: BoardGeometry,
     image_permutation: dict[str, str] | None,
 ) -> dict[str, XYZ]:
-    base_world = (
-        calibration.board_outer_corners_world
-        if calibration.board_outer_corners_world is not None
-        else geometry.outer_corners_world_from_origin()
-    )
-    if image_permutation is None or calibration.board_outer_corners_world is None:
-        return base_world
-    return remap_world_corners_by_image_permutation(base_world, image_permutation)
+    del image_permutation
+    model = load_fixed_calibrated_board_model(geometry=geometry, calibration=calibration)
+    return dict(model.board_outer_corners_world)
 
 
 def _extract_corner_map_from_metadata(metadata: Mapping[str, Any]) -> dict[str, PixelUV] | None:

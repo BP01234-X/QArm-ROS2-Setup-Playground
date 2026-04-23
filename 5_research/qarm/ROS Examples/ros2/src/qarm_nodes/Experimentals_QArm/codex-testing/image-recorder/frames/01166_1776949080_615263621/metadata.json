@@ -1,0 +1,39 @@
+{
+  "bundle_name": "01166_1776949080_615263621",
+  "trigger": "color",
+  "color": {
+    "frame_id": "camera_color",
+    "stamp": {
+      "sec": 1776949080,
+      "nanosec": 615263621
+    }
+  },
+  "depth": {
+    "frame_id": "left_ir_optical_frame",
+    "stamp": {
+      "sec": 1776949080,
+      "nanosec": 548259732
+    }
+  },
+  "stamp_delta_ms": 67.004,
+  "rgb_shape": [
+    480,
+    640,
+    3
+  ],
+  "depth_shape": [
+    480,
+    640
+  ],
+  "center_depth_m": 0.634,
+  "depth_min_m": 0.284,
+  "depth_max_m": 65.535,
+  "previous_center_depth_m": 0.634,
+  "center_depth_delta_m": 0.0,
+  "files": {
+    "rgb": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/image-recorder/frames/01166_1776949080_615263621/rgb.jpg",
+    "depth_npy": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/image-recorder/frames/01166_1776949080_615263621/depth_m.npy",
+    "depth_preview": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/image-recorder/frames/01166_1776949080_615263621/depth_preview.png",
+    "compare": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/image-recorder/frames/01166_1776949080_615263621/compare_rgb_depth.jpg"
+  }
+}

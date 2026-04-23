@@ -11,8 +11,8 @@
     "color": {
       "frame_id": "camera_color",
       "stamp": {
-        "sec": 1776941151,
-        "nanosec": 653124433
+        "sec": 1776949083,
+        "nanosec": 562242912
       },
       "shape": [
         480,
@@ -20,29 +20,29 @@
         3
       ],
       "center_pixel_bgr": [
-        92,
-        115,
-        144
+        29,
+        28,
+        61
       ],
       "mean_bgr": [
-        86.14,
-        92.68,
-        108.83
+        86.56,
+        84.59,
+        93.41
       ]
     },
     "depth": {
       "frame_id": "left_ir_optical_frame",
       "stamp": {
-        "sec": 1776941151,
-        "nanosec": 653124433
+        "sec": 1776949083,
+        "nanosec": 562242912
       },
       "shape": [
         480,
         640
       ],
-      "center_depth_m": 0.431,
+      "center_depth_m": 0.634,
       "min_depth_m": 0.0,
-      "max_depth_m": 18.026
+      "max_depth_m": 11.881
     }
   }
 }

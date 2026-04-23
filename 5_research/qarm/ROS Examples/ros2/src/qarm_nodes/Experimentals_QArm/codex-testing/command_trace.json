@@ -1,0 +1,619 @@
+{
+  "frame_name": "world",
+  "units": "m",
+  "tcp_offset_xyz_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "updated_at_utc": "2026-04-23T12:48:23.562711+00:00",
+  "commands": [
+    {
+      "timestamp_utc": "2026-04-23T12:48:16.495100+00:00",
+      "stage": "gripper_command",
+      "action_description": "set_gripper(0.7)",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": null,
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": false,
+      "tcp_corrected_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "goal_id": "phase3-gripper-20260423T124816.494887Z-74e6c116",
+      "gripper": 0.7,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:16.597544+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:16.597883+00:00",
+      "stage": "observer_pose",
+      "action_description": "move_to_observer_pose name=chess_observer_manual xyz=(0.186611, -0.008166, 0.175234) rpy=(0.0, 0.0, 0.008439)",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": false,
+      "tcp_corrected_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "goal_id": "phase3-move-20260423T124816.597770Z-b73b64d2",
+      "gripper": null,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:16.831096+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:16.832251+00:00",
+      "stage": "gripper_command",
+      "action_description": "set_gripper(0.7)",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": null,
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": false,
+      "tcp_corrected_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "goal_id": "phase3-gripper-20260423T124816.832082Z-8ec79ac4",
+      "gripper": 0.7,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:17.136442+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.186611,
+        -0.008166,
+        0.175234,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:17.136873+00:00",
+      "stage": "source_approach",
+      "action_description": "move_to_world_pose stage=source_approach xyz=(0.21874999999999994, -0.08375000000000002, 0.012)",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": true,
+      "tcp_corrected_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "goal_id": "phase3-move-20260423T124817.136727Z-7f3fcbe3",
+      "gripper": null,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:19.156660+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:19.157151+00:00",
+      "stage": "gripper_command",
+      "action_description": "set_gripper(0.7)",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": null,
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": false,
+      "tcp_corrected_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "goal_id": "phase3-gripper-20260423T124819.157007Z-f5919b31",
+      "gripper": 0.7,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:19.441094+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:19.441552+00:00",
+      "stage": "pick_e2",
+      "action_description": "execute_pick square=e2 pick_height_m=0.012",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": true,
+      "tcp_corrected_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "goal_id": "phase3-move-20260423T124819.441413Z-b5d01750",
+      "gripper": null,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:19.574873+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:19.575631+00:00",
+      "stage": "gripper_command",
+      "action_description": "set_gripper(0.9)",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": null,
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": false,
+      "tcp_corrected_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "goal_id": "phase3-gripper-20260423T124819.575446Z-30208eac",
+      "gripper": 0.9,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:19.819762+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.012,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:19.820261+00:00",
+      "stage": "lift_e2",
+      "action_description": "lift_piece square=e2 lift_height_m=0.110",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.122,
+        0.008439
+      ],
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": true,
+      "tcp_corrected_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.122,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.122,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.122,
+        0.008439
+      ],
+      "goal_id": "phase3-move-20260423T124819.820120Z-aaf1fd69",
+      "gripper": null,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:21.695713+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.122,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:21.696284+00:00",
+      "stage": "gripper_command",
+      "action_description": "set_gripper(0.9)",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": null,
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": false,
+      "tcp_corrected_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.122,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.122,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.122,
+        0.008439
+      ],
+      "goal_id": "phase3-gripper-20260423T124821.696134Z-8ec5b2f4",
+      "gripper": 0.9,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:21.767324+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.21874999999999994,
+        -0.08375000000000002,
+        0.122,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:21.767811+00:00",
+      "stage": "target_approach",
+      "action_description": "move_to_world_pose stage=target_approach xyz=(0.21875, -0.008750000000000015, 0.012)",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": true,
+      "tcp_corrected_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "goal_id": "phase3-move-20260423T124821.767676Z-307115d6",
+      "gripper": null,
+      "status_state": "succeeded",
+      "done_timestamp_utc": "2026-04-23T12:48:23.489111+00:00",
+      "status_message": "QArm has reached the target pose.",
+      "bridge_consumed_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:23.489738+00:00",
+      "stage": "place_e4",
+      "action_description": "execute_place square=e4 place_height_m=0.012",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": true,
+      "tcp_corrected_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "goal_id": "phase3-move-20260423T124823.489593Z-7522f66a",
+      "gripper": null,
+      "status_state": "idle",
+      "done_timestamp_utc": "2026-04-23T12:48:23.560988+00:00",
+      "status_message": "Ignored duplicate command with identical pose/gripper payload.",
+      "bridge_consumed_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:23.561646+00:00",
+      "stage": "gripper_command",
+      "action_description": "set_gripper(0.7)",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": null,
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": false,
+      "tcp_corrected_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "goal_id": "phase3-gripper-20260423T124823.561482Z-f9206a62",
+      "gripper": 0.7,
+      "status_state": "idle",
+      "done_timestamp_utc": "2026-04-23T12:48:23.561978+00:00",
+      "status_message": "Ignored duplicate command with identical pose/gripper payload.",
+      "bridge_consumed_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "error": null
+    },
+    {
+      "timestamp_utc": "2026-04-23T12:48:23.562400+00:00",
+      "stage": "retreat_vertical",
+      "action_description": "retreat_vertical",
+      "frame_name": "world",
+      "units": "m",
+      "planner_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.122,
+        0.008439
+      ],
+      "tcp_offset_xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tcp_offset_applied": true,
+      "tcp_corrected_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.122,
+        0.008439
+      ],
+      "bridge_goal_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.122,
+        0.008439
+      ],
+      "target_file_goal_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.122,
+        0.008439
+      ],
+      "goal_id": "phase3-move-20260423T124823.562277Z-76d9acd3",
+      "gripper": null,
+      "status_state": "idle",
+      "done_timestamp_utc": "2026-04-23T12:48:23.562705+00:00",
+      "status_message": "Ignored duplicate command with identical pose/gripper payload.",
+      "bridge_consumed_pose": [
+        0.21875,
+        -0.008750000000000015,
+        0.012,
+        0.008439
+      ],
+      "error": null
+    }
+  ]
+}

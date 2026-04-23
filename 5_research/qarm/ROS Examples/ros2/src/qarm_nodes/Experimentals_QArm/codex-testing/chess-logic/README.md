@@ -35,6 +35,7 @@ This prototype does not yet implement:
 - `ascii_display.py`: terminal debugging views
 - `game_orchestrator.py`: main one-move-at-a-time coordinator
 - `demo_phase3.py`: runnable CLI demo
+- `demo_square_move_real.py`: direct real square->square manipulation test
 - `board_geometry_demo.py`: standalone Phase 4 geometry demo
 
 ## Config Notes
@@ -98,6 +99,18 @@ Quick fixed-grid square assignment test:
 ```bash
 python3 fixed_square_assignment_demo.py
 ```
+
+## Direct Real Square Move
+
+To test the first real manipulation milestone (`approach -> pick -> lift -> move ->
+place -> retreat -> observer`) with one direct square move:
+
+```bash
+python3 demo_square_move_real.py --source e2 --target e4 --verify-mode mock_expected
+```
+
+This uses the existing bridge-backed `MoveExecutor` and the same orchestrator/FSM
+pipeline, but takes direct squares instead of engine/GPT move sourcing.
 
 ## Fixed Corner Calibration
 

@@ -1,11 +1,11 @@
 {
   "state": "succeeded",
   "message": "QArm has reached the target pose.",
-  "active_goal_id": "Chess_observing-20260423T074848Z",
+  "active_goal_id": "phase3-move-20260423T124823.562277Z-76d9acd3",
   "active_goal_pose": [
-    0.186611,
-    -0.008166,
-    0.175234,
+    0.21875,
+    -0.008750000000000015,
+    0.122,
     0.008439
   ],
   "active_gripper": null,
@@ -14,19 +14,19 @@
   "target_file": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/target_pose.json",
   "status_file": "/home/bp02-ubuntu/Documents/GitHub/QArm-ROS2-Setup-Playground/5_research/qarm/ROS Examples/ros2/src/qarm_nodes/Experimentals_QArm/codex-testing/status.json",
   "live_joint_positions": [
-    -0.04066,
-    -0.316844,
-    1.252801,
+    -0.042195,
+    0.045263,
+    1.140793,
     0.008439
   ],
   "live_task_space_pose": [
-    0.175536,
-    -0.007141,
-    0.16609,
+    0.215721,
+    -0.009108,
+    0.116621,
     0.008439
   ],
   "live_joint_stamp": {
-    "sec": 1776940358,
-    "nanosec": 161053947
+    "sec": 1776948505,
+    "nanosec": 508868511
   }
 }
